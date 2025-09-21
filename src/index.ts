@@ -1,8 +1,10 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import pkg from '../package.json' assert { type: 'json' }
-import type { Comment, QueryParams } from './types'
-import { filterComments, getRandomComment } from './utils'
+import * as sharp from 'sharp'
+import { Buffer } from 'node:buffer'
+import type { Comment } from './types'
+import { filterComments, getRandomComment, generateCommentSvg } from './utils'
 import commentsData from './data/comments.json' assert { type: 'json' }
 
 // --- Data Loading ---
@@ -23,8 +25,7 @@ app.get('/', (c) => {
     version: pkg.version,
     endpoints: {
       api: '/api/random, /api/comment/:id',
-      image: '/comment.png',
-      embed: '/embed.js'
+      image: '/comment.png, /comment.svg'
     },
     totalComments: comments.length
   })
@@ -56,6 +57,63 @@ app.get('/api/comment/:id', (c) => {
   }
 
   return c.json(comment)
+})
+
+// Image generation endpoint
+app.get('/comment.png', async (c) => {
+  const { theme = 'light', width = '800', id, tags, author } = c.req.query()
+  
+  let comment: Comment | undefined
+  
+  if (id) {
+    comment = comments.find(c => c.id === parseInt(id, 10))
+  } else {
+    const filtered = filterComments(comments, tags, author)
+    comment = filtered.length > 0 ? getRandomComment(filtered) : undefined
+  }
+  
+  if (!comment) {
+    return c.text('Comment not found', 404)
+  }
+
+  const svg = generateCommentSvg(comment, theme, width)
+
+  try {
+    const buffer = await sharp.default(Buffer.from(svg))
+      .png()
+      .toBuffer()
+
+    c.header('Content-Type', 'image/png')
+    c.header('Cache-Control', 'no-cache, no-store, must-revalidate')
+    return c.body(buffer.buffer as ArrayBuffer)
+  } catch (error) {
+    console.error('Image generation error:', error)
+    return c.text('Error generating image', 500)
+  }
+})
+
+// SVG generation endpoint
+app.get('/comment.svg', async (c) => {
+  const { theme = 'light', width = '800', id, tags, author } = c.req.query()
+  
+  let comment: Comment | undefined
+  
+  if (id) {
+    comment = comments.find(c => c.id === parseInt(id, 10))
+  } else {
+    const filtered = filterComments(comments, tags, author)
+    comment = filtered.length > 0 ? getRandomComment(filtered) : undefined
+  }
+  
+  if (!comment) {
+    return c.text('Comment not found', 404)
+  }
+
+  const svg = generateCommentSvg(comment, theme, width)
+
+  c.header('Content-Type', 'image/svg+xml')
+  c.header('Cache-Control', 'no-cache, no-store, must-revalidate')
+  return c.body(svg)
 })
 
 const port = process.env.PORT || 3000

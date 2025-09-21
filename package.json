@@ -8,10 +8,12 @@
     "build": "bun run scripts/build-comments.ts"
   },
   "dependencies": {
-    "hono": "^4.0.0"
+    "hono": "^4.0.0",
+    "sharp": "^0.34.4"
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "@types/sharp": "^0.32.0",
     "csv-parse": "^5.5.0",
     "csv-stringify": "^6.4.0",
     "typescript": "^5.3.0"
