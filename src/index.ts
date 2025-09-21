@@ -4,7 +4,7 @@ import pkg from '../package.json' assert { type: 'json' }
 import { readFileSync } from 'fs'
 import { fileURLToPath } from 'url'
 import { dirname, join } from 'path'
-import type { Comment, QueryParams } from './types'
+import type { Comment } from './types'
 import { filterComments, getRandomComment } from './utils'
 
 // --- Data Loading ---
@@ -55,8 +55,12 @@ app.get('/api/random', (c) => {
 
 // REST API: Get comment by ID
 app.get('/api/comment/:id', (c) => {
-  const id = c.req.param('id')
-  const comment = comments.find(c => c.id === id)
+  const idParam = c.req.param('id')
+  const numericId = parseInt(idParam, 10)
+  if (isNaN(numericId)) {
+    return c.json({ error: 'Invalid comment ID' }, 400)
+  }
+  const comment = comments.find(c => c.id === numericId)
 
   if (!comment) {
     return c.json({ error: 'Comment not found' }, 404)

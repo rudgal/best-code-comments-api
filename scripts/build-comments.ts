@@ -26,7 +26,7 @@ try {
   })
 
   const comments: Comment[] = records.map((row: any) => ({
-    id: row.id.padStart(3, '0'), // Ensure 3-digit IDs
+    id: parseInt(row.id, 10),
     content: row.content,
     author: row.author || 'Anonymous',
     tags: row.tags ? row.tags.split(',').map((t: string) => t.trim()) : [],
@@ -36,17 +36,16 @@ try {
 
   // Validate required fields
   comments.forEach((comment, index) => {
-    if (!comment.id) throw new Error(`Missing ID at row ${index + 2}`)
+    if (isNaN(comment.id)) throw new Error(`Invalid ID at row ${index + 2}: ${comment.id}`)
     if (!comment.content) throw new Error(`Missing content at row ${index + 2}`)
     if (!comment.dateAdded) throw new Error(`Missing date at row ${index + 2}`)
   })
 
   // Sort by ID for consistency
-  comments.sort((a, b) => a.id.localeCompare(b.id))
-
+  comments.sort((a, b) => a.id - b.id)
 
   // Check for duplicate IDs
-  const ids = new Set<string>()
+  const ids = new Set<number>()
   comments.forEach(comment => {
     if (ids.has(comment.id)) {
       throw new Error(`Duplicate ID found: ${comment.id}`)

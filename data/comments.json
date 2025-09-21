@@ -1,6 +1,6 @@
 [
   {
-    "id": "001",
+    "id": 1,
     "content": "// I'm not sure why this works, but it does",
     "author": "Anonymous",
     "tags": [
@@ -11,7 +11,7 @@
     "dateAdded": "2024-01-15"
   },
   {
-    "id": "002",
+    "id": 2,
     "content": "// TODO: Fix this properly instead of this hack\n// UPDATE: 3 years later, still here",
     "author": "Future Regret",
     "tags": [
@@ -23,8 +23,8 @@
     "dateAdded": "2024-01-16"
   },
   {
-    "id": "003",
-    "content": "/* \n * You are not expected to understand this\n * (Ken Thompson, Unix V6 kernel, 1975)\n */",
+    "id": 3,
+    "content": "/*\n * You are not expected to understand this\n * (Ken Thompson, Unix V6 kernel, 1975)\n */",
     "author": "Ken Thompson",
     "tags": [
       "classic",
@@ -35,7 +35,7 @@
     "dateAdded": "2024-01-17"
   },
   {
-    "id": "004",
+    "id": 4,
     "content": "// I am not responsible for this code.\n// They made me write it, against my will.",
     "author": "Under Duress",
     "tags": [
@@ -46,7 +46,7 @@
     "dateAdded": "2024-01-18"
   },
   {
-    "id": "005",
+    "id": 5,
     "content": "// drunk, fix later",
     "author": "Anonymous",
     "tags": [
@@ -57,7 +57,7 @@
     "dateAdded": "2024-01-19"
   },
   {
-    "id": "006",
+    "id": 6,
     "content": "// Magic. Do not touch.",
     "author": "Anonymous",
     "tags": [
