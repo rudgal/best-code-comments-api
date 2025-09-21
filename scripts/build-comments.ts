@@ -27,11 +27,11 @@ try {
 
   const comments: Comment[] = records.map((row: any) => ({
     id: parseInt(row.id, 10),
-    content: row.content,
     author: row.author || 'Anonymous',
     tags: row.tags ? row.tags.split(',').map((t: string) => t.trim()) : [],
     source: row.source || null,
-    dateAdded: row.dateAdded
+    dateAdded: row.dateAdded,
+    content: row.content
   }))
 
   // Validate required fields

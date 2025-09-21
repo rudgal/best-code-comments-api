@@ -1,12 +1,12 @@
-id,content,author,tags,source,dateAdded
-001,"// I'm not sure why this works, but it does",Anonymous,"confusion,working-code",,2024-01-15
-002,"// TODO: Fix this properly instead of this hack
-// UPDATE: 3 years later, still here",Future Regret,"todo,hack,technical-debt",https://github.com/example/repo,2024-01-16
-003,"/* 
+id,author,tags,source,dateAdded,content
+001,Anonymous,"confusion,working-code",,2024-01-15,"// I'm not sure why this works, but it does"
+002,"Future Regret","todo,hack,technical-debt",https://github.com/example/repo,2024-01-16,"// TODO: Fix this properly instead of this hack
+// UPDATE: 3 years later, still here"
+003,"Ken Thompson","classic,unix,multiline",https://github.com/unix-history-repo,2024-01-17,"/*
  * You are not expected to understand this
  * (Ken Thompson, Unix V6 kernel, 1975)
- */",Ken Thompson,"classic,unix,multiline",https://github.com/unix-history-repo,2024-01-17
-004,"// I am not responsible for this code.
-// They made me write it, against my will.",Under Duress,"humor,blame",,2024-01-18
-005,"// drunk, fix later",Anonymous,"humor,todo",https://twitter.com/codinghorror,2024-01-19
-006,"// Magic. Do not touch.",Anonymous,"warning,humor",,2024-01-20
+ */"
+004,"Under Duress","humor,blame",,2024-01-18,"// I am not responsible for this code.
+// They made me write it, against my will."
+005,Anonymous,"humor,todo",https://twitter.com/codinghorror,2024-01-19,"// drunk, fix later"
+006,Anonymous,"warning,humor",,2024-01-20,"// Magic. Do not touch."
