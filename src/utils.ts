@@ -1,6 +1,9 @@
 import type { Comment } from './types'
 
-export function getRandomComment(comments: Comment[]): Comment {
+export function getRandomComment(comments: Comment[]): Comment | undefined {
+  if (comments.length === 0) {
+    return undefined
+  }
   return comments[Math.floor(Math.random() * comments.length)]
 }
 
@@ -37,5 +40,5 @@ export function escapeHtml(text: string): string {
     '"': '&quot;',
     "'": '&#39;'
   }
-  return text.replace(/[&<>"'']/g, m => map[m])
+  return text.replace(/[&<>"']/g, m => map[m]!)
 }

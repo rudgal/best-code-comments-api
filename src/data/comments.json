@@ -24,7 +24,7 @@
   },
   {
     "id": 3,
-    "content": "/*\n * You are not expected to understand this\n * (Ken Thompson, Unix V6 kernel, 1975)\n */",
+    "content": "/* \n * You are not expected to understand this\n * (Ken Thompson, Unix V6 kernel, 1975)\n */",
     "author": "Ken Thompson",
     "tags": [
       "classic",

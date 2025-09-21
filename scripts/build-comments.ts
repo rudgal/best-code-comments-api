@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 import type { Comment } from '../src/types'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
-const dataCsvPath = join(__dirname, '../data/comments.csv')
-const dataJsonPath = join(__dirname, '../data')
+const dataCsvPath = join(__dirname, '../src/data/comments.csv')
+const dataJsonPath = join(__dirname, '../src/data')
 const distPath = join(__dirname, '../dist')
 
 // Ensure dist directory exists
@@ -53,19 +53,14 @@ try {
     ids.add(comment.id)
   })
 
-  // Write both formatted and minified versions
+  // Write formatted version
   writeFileSync(
     join(dataJsonPath, 'comments.json'),
     JSON.stringify(comments, null, 2)
   )
-  writeFileSync(
-    join(distPath, 'comments.min.json'),
-    JSON.stringify(comments)
-  )
 
   console.log(`✅ Successfully built ${comments.length} comments`)
   console.log(`📁 Output: ${dataJsonPath}/comments.json`)
-  console.log(`📁 Output: ${distPath}/comments.min.json`)
 } catch (error) {
   console.error('❌ Build failed:', error)
   process.exit(1)

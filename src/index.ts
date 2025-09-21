@@ -1,24 +1,13 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import pkg from '../package.json' assert { type: 'json' }
-import { readFileSync } from 'fs'
-import { fileURLToPath } from 'url'
-import { dirname, join } from 'path'
-import type { Comment } from './types'
+import type { Comment, QueryParams } from './types'
 import { filterComments, getRandomComment } from './utils'
+import commentsData from './data/comments.json' assert { type: 'json' }
 
 // --- Data Loading ---
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-let comments: Comment[] = []
-
-try {
-  const jsonPath = join(__dirname, '../dist/comments.json')
-  comments = JSON.parse(readFileSync(jsonPath, 'utf8'))
-} catch (error) {
-  console.error("⚠️ Could not read or parse 'dist/comments.json'.")
-  console.error("➡️ Please run 'bun run build' to generate the comments data.")
-}
+const comments: Comment[] = commentsData as Comment[]
 
 // --- API Server ---
 
