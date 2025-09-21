@@ -33,7 +33,7 @@ app.get('/', (c) => {
     name: 'BestCodeComments API',
     version: pkg.version,
     endpoints: {
-      api: '/api/random, /api/comments, /api/comments/:id',
+      api: '/api/random, /api/comment/:id',
       image: '/comment.png',
       embed: '/embed.js'
     },
@@ -51,6 +51,18 @@ app.get('/api/random', (c) => {
   }
 
   return c.json(getRandomComment(filtered))
+})
+
+// REST API: Get comment by ID
+app.get('/api/comment/:id', (c) => {
+  const id = c.req.param('id')
+  const comment = comments.find(c => c.id === id)
+
+  if (!comment) {
+    return c.json({ error: 'Comment not found' }, 404)
+  }
+
+  return c.json(comment)
 })
 
 const port = process.env.PORT || 3000
