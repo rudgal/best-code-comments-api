@@ -1,4 +1,5 @@
 import type { Comment } from './types'
+import { escape } from 'lodash'
 
 export function getRandomComment(comments: Comment[]): Comment | undefined {
   if (comments.length === 0) {
@@ -32,17 +33,6 @@ export function filterComments(
   return filtered
 }
 
-export function escapeHtml(text: string): string {
-  const map: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#39;'
-  }
-  return text.replace(/[&<>"']/g, m => map[m]!)
-}
-
 export function generateCommentSvg(comment: Comment, theme: string = 'light', width: string = '800'): string {
   const bgColor = theme === 'dark' ? '#0d1117' : '#ffffff'
   const textColor = theme === 'dark' ? '#c9d1d9' : '#24292f'
@@ -63,12 +53,12 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
       <rect x="0" y="0" width="4" height="${height}" fill="${accentColor}"/>
       
       ${lines.map((line, i) =>
-    `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" fill="${textColor}" font-family="ui-monospace, monospace" font-size="16" xml:space="preserve">${escapeHtml(line)}</text>`
+    `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" fill="${textColor}" font-family="ui-monospace, monospace" font-size="16" xml:space="preserve">${escape(line)}</text>`
   ).join('')}
       
       <text x="${padding}" y="${height - padding}" fill="${authorColor}" 
             font-family="system-ui, sans-serif" font-size="14">
-        — ${escapeHtml(comment.author)}
+        — ${escape(comment.author)}
       </text>
       
       ${comment.tags.length > 0 ? `
