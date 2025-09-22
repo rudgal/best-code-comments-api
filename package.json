@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun run build && bun run src/index.ts",
+    "dev": "bun run build && bun --hot src/index.ts",
     "build": "bun run scripts/build-comments.ts",
     "scrape-so-folder": "bun run scripts/scrape-stackoverflow.ts --folder html/stackoverflow",
     "scrape-so-url": "bun run scripts/scrape-stackoverflow.ts --url  https://stackoverflow.com/questions/184618"
