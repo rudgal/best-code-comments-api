@@ -28,9 +28,10 @@ try {
   const comments: Comment[] = records.map((row: any) => ({
     id: parseInt(row.id, 10),
     author: row.author || 'Anonymous',
-    tags: row.tags ? row.tags.split(',').map((t: string) => t.trim()) : [],
+    date: row.date,
     source: row.source || null,
-    dateAdded: row.dateAdded,
+    popularity: parseInt(row.popularity, 10),
+    tags: row.tags ? row.tags.split(',').map((t: string) => t.trim()) : [],
     content: row.content
   }))
 
@@ -38,7 +39,7 @@ try {
   comments.forEach((comment, index) => {
     if (isNaN(comment.id)) throw new Error(`Invalid ID at row ${index + 2}: ${comment.id}`)
     if (!comment.content) throw new Error(`Missing content at row ${index + 2}`)
-    if (!comment.dateAdded) throw new Error(`Missing date at row ${index + 2}`)
+    if (!comment.date) throw new Error(`Missing date at row ${index + 2}`)
   })
 
   // Sort by ID for consistency

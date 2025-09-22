@@ -1,10 +1,11 @@
 export interface Comment {
   id: number
-  content: string
   author: string
-  tags: string[]
+  date: string
   source: string | null
-  dateAdded: string
+  popularity: number;
+  tags: string[]
+  content: string
 }
 
 export interface QueryParams {
