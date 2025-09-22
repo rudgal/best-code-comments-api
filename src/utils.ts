@@ -62,12 +62,9 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
             fill="none" stroke="${borderColor}" stroke-width="2" rx="6"/>
       <rect x="0" y="0" width="4" height="${height}" fill="${accentColor}"/>
       
-      ${lines.map((line, i) => 
-        `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" 
-               fill="${textColor}" font-family="ui-monospace, monospace" font-size="16">
-          ${escapeHtml(line)}
-        </text>`
-      ).join('')}
+      ${lines.map((line, i) =>
+    `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" fill="${textColor}" font-family="ui-monospace, monospace" font-size="16" xml:space="preserve">${escapeHtml(line)}</text>`
+  ).join('')}
       
       <text x="${padding}" y="${height - padding}" fill="${authorColor}" 
             font-family="system-ui, sans-serif" font-size="14">
