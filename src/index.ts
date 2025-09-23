@@ -144,10 +144,11 @@ if (isDevEnv()) {
         <ul>
           ${commentsAll.map(comment => {
             const isExcluded = isCommentExcluded(comment);
-            const idStyle = isExcluded ? 'color: red; font-weight: bold;' : '';
+            const styleParagraph = isExcluded ? 'font-weight: bold;' : '';
+            const styleListItem = isExcluded ? 'background-color: #ff9f9f;' : '';
             return `
-            <li>
-              <p style="${idStyle}"><strong>ID:</strong> ${comment.id}</p>
+            <li style="${styleListItem}">
+              <p style="${styleParagraph}"><strong>ID:</strong> ${comment.id}</p>
             ${generateCommentSvg(comment)}
             </li>
           `;
