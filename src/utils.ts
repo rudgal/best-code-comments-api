@@ -103,7 +103,7 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
     wrapText(line, MAX_CHARS_PER_LINE).forEach(wrappedLine => wrappedLines.push(wrappedLine));
   });
 
-  const height = Math.max(200, (wrappedLines.length * lineHeight) + (padding * 3) + 40)
+  const height = Math.max(140, (wrappedLines.length * lineHeight) + (padding * 3.5))
   const hostedByUrl = process.env.HOSTED_BY_URL || (process.env.HOSTED_BY ? `https://${process.env.HOSTED_BY}` : '');
 
   return `
@@ -116,11 +116,13 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
       ${wrappedLines.map((line, i) =>
     `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" fill="${textColor}" font-family="ui-monospace, monospace" font-size="16" xml:space="preserve">${escape(line)}</text>`
   ).join('')}
-      <text x="${padding}" y="${height - padding}" fill="${authorColor}" 
-            font-family="system-ui, sans-serif" font-size="14">
-        — ${escape(comment.author)}
-      </text>
-
+      <a href="${comment.source}" target="_blank">
+        <text x="${padding}" y="${height - padding}" fill="${authorColor}" 
+              font-family="system-ui, sans-serif" font-size="14">
+          — ${escape(comment.author)}
+        </text>
+      </a>
+      
       ${process.env.HOSTED_BY ? `
         <a href="${hostedByUrl}" target="_blank">
          <text x="${parseInt(width) - padding}" y="${height - padding}" 
