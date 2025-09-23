@@ -6,7 +6,7 @@ import { Buffer } from 'node:buffer'
 import type { Comment } from './types'
 import {
   filterComments, filterStatic, getRandomComment, generateCommentSvg, SVG_DEFAULT_WIDTH, isCommentExcluded,
-  isDevEnv
+  isDevEnv, IMAGE_CACHE_MAX_AGE
 } from './utils'
 import commentsData from './data/comments.json' assert { type: 'json' }
 
@@ -67,21 +67,36 @@ app.get('/api/comment/:id', (c) => {
 
 // Image generation endpoint
 app.get('/comment.png', async (c) => {
-  const { theme = 'light', width = SVG_DEFAULT_WIDTH, id, tags, author } = c.req.query()
+  const { id, ...queryParams } = c.req.query()
 
   let comment: Comment | undefined
 
-  if (id) {
+  if (id) { // If ID is provided, generate image directly
     comment = commentsPreFiltered.find(c => c.id === parseInt(id, 10))
-  } else {
+  } else { // If no ID, pick random and redirect
+    const { tags, author } = queryParams
     const filtered = filterComments(commentsPreFiltered, tags, author)
-    comment = filtered.length > 0 ? getRandomComment(filtered) : undefined
+    const randomComment = filtered.length > 0 ? getRandomComment(filtered) : undefined
+
+    if (!randomComment) {
+      return c.json({ error: 'No comments found with specified filters' }, 404)
+    }
+
+    // Construct redirect URL
+    const newUrl = `/comment.png?id=${randomComment.id}`
+    const searchParams = new URLSearchParams(queryParams as Record<string, string>)
+    const queryString = searchParams.toString()
+    const redirectUrl = queryString ? `${newUrl}&${queryString}` : newUrl
+
+    return c.redirect(redirectUrl)
   }
 
+  // If comment was found (either by ID or after redirect), proceed with generation
   if (!comment) {
     return c.text('Comment not found', 404)
   }
 
+  const { theme = 'light', width = SVG_DEFAULT_WIDTH } = queryParams
   const svg = generateCommentSvg(comment, theme, width)
 
   try {
@@ -90,7 +105,7 @@ app.get('/comment.png', async (c) => {
       .toBuffer()
 
     c.header('Content-Type', 'image/png')
-    c.header('Cache-Control', 'no-cache, no-store, must-revalidate')
+    c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`) // Add caching
     return c.body(buffer.buffer as ArrayBuffer)
   } catch (error) {
     console.error('Image generation error:', error)
@@ -100,25 +115,38 @@ app.get('/comment.png', async (c) => {
 
 // SVG generation endpoint
 app.get('/comment.svg', async (c) => {
-  const { theme = 'light', width = SVG_DEFAULT_WIDTH, id, tags, author } = c.req.query()
+  const { id, ...queryParams } = c.req.query()
 
   let comment: Comment | undefined
 
   if (id) {
     comment = commentsPreFiltered.find(c => c.id === parseInt(id, 10))
   } else {
+    const { tags, author } = queryParams
     const filtered = filterComments(commentsPreFiltered, tags, author)
-    comment = filtered.length > 0 ? getRandomComment(filtered) : undefined
+    const randomComment = filtered.length > 0 ? getRandomComment(filtered) : undefined
+
+    if (!randomComment) {
+      return c.json({ error: 'No comments found with specified filters' }, 404)
+    }
+
+    const newUrl = `/comment.svg?id=${randomComment.id}`
+    const searchParams = new URLSearchParams(queryParams as Record<string, string>)
+    const queryString = searchParams.toString()
+    const redirectUrl = queryString ? `${newUrl}&${queryString}` : newUrl
+
+    return c.redirect(redirectUrl)
   }
 
   if (!comment) {
     return c.text('Comment not found', 404)
   }
 
+  const { theme = 'light', width = SVG_DEFAULT_WIDTH } = queryParams
   const svg = generateCommentSvg(comment, theme, width)
 
   c.header('Content-Type', 'image/svg+xml')
-  c.header('Cache-Control', 'no-cache, no-store, must-revalidate')
+  c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`) // Add caching
   return c.body(svg)
 })
 

@@ -5,6 +5,7 @@ export const SVG_DEFAULT_WIDTH = '820';
 export const MAX_CHARS_PER_LINE = 80;
 export const MAX_LINES = 25;
 export const MIN_POPULARITY = 2;
+export const IMAGE_CACHE_MAX_AGE = 2678400;
 
 export function isDevEnv() {
   return process.env.NODE_ENV === 'development'
