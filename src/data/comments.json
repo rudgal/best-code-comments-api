@@ -1,5 +1,14 @@
 [
   {
+    "id": 0,
+    "author": "rudgal",
+    "date": "2025-09-23 01:01:01Z",
+    "source": "https://rudiverse.net",
+    "popularity": 0,
+    "tags": [],
+    "content": "// following line is exactly 80 chars long\nconst x = 'xk9ssdmz7q3w8r5t2y6u1i4o0p7a9s8d6f3g5fh2j1k4al7z9x2ac8sdfv5b3n6ms1q'"
+  },
+  {
     "id": 1,
     "author": "Jens Roland",
     "date": "2011-11-19 02:24:04Z",
@@ -15,7 +24,7 @@
     "source": "https://stackoverflow.com/a/482129",
     "popularity": 1454,
     "tags": [],
-    "content": "// \n// Dear maintainer:\n// \n// Once you are done trying to 'optimize' this routine,\n// and have realized what a terrible mistake that was,\n// please increment the following counter as a warning\n// to the next guy:\n// \n// total_hours_wasted_here = 42\n//"
+    "content": "//\n// Dear maintainer:\n//\n// Once you are done trying to 'optimize' this routine,\n// and have realized what a terrible mistake that was,\n// please increment the following counter as a warning\n// to the next guy:\n//\n// total_hours_wasted_here = 42\n//"
   },
   {
     "id": 3,
@@ -69,7 +78,7 @@
     "source": "https://stackoverflow.com/a/186967",
     "popularity": 927,
     "tags": [],
-    "content": "// I dedicate all this code, all my work, to my wife, Darlene, who will \n// have to support me and our three children and the dog once it gets \n// released into the public."
+    "content": "// I dedicate all this code, all my work, to my wife, Darlene, who will\n// have to support me and our three children and the dog once it gets\n// released into the public."
   },
   {
     "id": 9,
@@ -78,7 +87,7 @@
     "source": "https://stackoverflow.com/a/184673",
     "popularity": 907,
     "tags": [],
-    "content": "//Code sanitized to protect the foolish.\nusing System;\nusing System.Collections.Generic;\nusing System.Text;\nusing System.Reflection;\nusing System.Web.UI;\n\nnamespace Mobile.Web.Control\n{\n    /// <summary>\n    /// Class used to work around Richard being a fucking idiot\n    /// </summary>\n    /// <remarks>\n    /// The point of this is to work around his poor design so that paging will \n    /// work on a mobile control. The main problem is the BindCompany() method, \n    /// which he hoped would be able to do everything. I hope he dies.\n    /// </remarks>\n    public abstract class RichardIsAFuckingIdiotControl : MobileBaseControl, ICompanyProfileControl\n    {\n        protected abstract Pager Pager { get; }\n\n        public void BindCompany(int companyId) { }\n\n        public RichardIsAFuckingIdiotControl()\n        {\n            MakeSureNobodyAccidentallyGetsBittenByRichardsStupidity();\n        }\n\n        private void MakeSureNobodyAccidentallyGetsBittenByRichardsStupidity()\n        {\n            // Make sure nobody is actually using that fucking bindcompany method\n            MethodInfo m = this.GetType().GetMethod(\"BindCompany\", BindingFlags.DeclaredOnly | \n                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);\n            if (m != null)\n            {\n                throw new RichardIsAFuckingIdiotException(\"No!! Don't use the fucking BindCompany method!!!\");\n            }\n            // P.S. this method is a joke ... the rest of the class is fucking serious\n        }\n\n        /// <summary>\n        /// This returns true if this control is supposed to be doing anything\n        /// at all for this request. Richard thought it was a good idea to load\n        /// the entire website during every request and have things turn themselves\n        /// off. He also thought bandanas and aviator sunglasses were \"fuckin' \n        /// gnarly, dude.\"\n        /// </summary>\n        protected bool IsThisTheRightPageImNotSureBecauseRichardIsDumb()\n        {\n            return Request.QueryString[\"Section\"] == this.MenuItemKey;\n        }\n\n        protected override void OnLoad(EventArgs e)\n        {\n            if (IsThisTheRightPageImNotSureBecauseRichardIsDumb())\n            {\n                Page.LoadComplete += new EventHandler(Page_LoadComplete);\n                Pager.RowCount = GetRowCountBecauseRichardIsDumb();\n            }\n            base.OnLoad(e);\n        }\n\n        protected abstract int GetRowCountBecauseRichardIsDumb();\n        protected abstract void BindDataBecauseRichardIsDumb();\n\n        void Page_LoadComplete(object sender, EventArgs e)\n        {\n            BindDataBecauseRichardIsDumb();\n        }\n\n        // the rest of his reduh-ndant interface members\n        public abstract string MenuItemName { get; set; }\n        public abstract string MenuItemKey { get; set; }\n        public abstract bool IsCapable(CapabilityCheck checker, int companyId);\n        public abstract bool ShowInMenu { get; }\n        public virtual Control CreateHeaderControl()\n        {\n            return null;\n        }\n    }\n}"
+    "content": "//Code sanitized to protect the foolish.\nusing System;\nusing System.Collections.Generic;\nusing System.Text;\nusing System.Reflection;\nusing System.Web.UI;\n\nnamespace Mobile.Web.Control\n{\n    /// <summary>\n    /// Class used to work around Richard being a fucking idiot\n    /// </summary>\n    /// <remarks>\n    /// The point of this is to work around his poor design so that paging will\n    /// work on a mobile control. The main problem is the BindCompany() method,\n    /// which he hoped would be able to do everything. I hope he dies.\n    /// </remarks>\n    public abstract class RichardIsAFuckingIdiotControl : MobileBaseControl, ICompanyProfileControl\n    {\n        protected abstract Pager Pager { get; }\n\n        public void BindCompany(int companyId) { }\n\n        public RichardIsAFuckingIdiotControl()\n        {\n            MakeSureNobodyAccidentallyGetsBittenByRichardsStupidity();\n        }\n\n        private void MakeSureNobodyAccidentallyGetsBittenByRichardsStupidity()\n        {\n            // Make sure nobody is actually using that fucking bindcompany method\n            MethodInfo m = this.GetType().GetMethod(\"BindCompany\", BindingFlags.DeclaredOnly |\n                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);\n            if (m != null)\n            {\n                throw new RichardIsAFuckingIdiotException(\"No!! Don't use the fucking BindCompany method!!!\");\n            }\n            // P.S. this method is a joke ... the rest of the class is fucking serious\n        }\n\n        /// <summary>\n        /// This returns true if this control is supposed to be doing anything\n        /// at all for this request. Richard thought it was a good idea to load\n        /// the entire website during every request and have things turn themselves\n        /// off. He also thought bandanas and aviator sunglasses were \"fuckin'\n        /// gnarly, dude.\"\n        /// </summary>\n        protected bool IsThisTheRightPageImNotSureBecauseRichardIsDumb()\n        {\n            return Request.QueryString[\"Section\"] == this.MenuItemKey;\n        }\n\n        protected override void OnLoad(EventArgs e)\n        {\n            if (IsThisTheRightPageImNotSureBecauseRichardIsDumb())\n            {\n                Page.LoadComplete += new EventHandler(Page_LoadComplete);\n                Pager.RowCount = GetRowCountBecauseRichardIsDumb();\n            }\n            base.OnLoad(e);\n        }\n\n        protected abstract int GetRowCountBecauseRichardIsDumb();\n        protected abstract void BindDataBecauseRichardIsDumb();\n\n        void Page_LoadComplete(object sender, EventArgs e)\n        {\n            BindDataBecauseRichardIsDumb();\n        }\n\n        // the rest of his reduh-ndant interface members\n        public abstract string MenuItemName { get; set; }\n        public abstract string MenuItemKey { get; set; }\n        public abstract bool IsCapable(CapabilityCheck checker, int companyId);\n        public abstract bool ShowInMenu { get; }\n        public virtual Control CreateHeaderControl()\n        {\n            return null;\n        }\n    }\n}"
   },
   {
     "id": 10,
@@ -141,7 +150,7 @@
     "source": "https://stackoverflow.com/a/766363",
     "popularity": 588,
     "tags": [],
-    "content": "// Replaces with spaces the braces in cases where braces in places cause stasis \n   $str = str_replace(array(\"\\{\",\"\\}\"),\" \",$str);"
+    "content": "// Replaces with spaces the braces in cases where braces in places cause stasis\n   $str = str_replace(array(\"\\{\",\"\\}\"),\" \",$str);"
   },
   {
     "id": 17,
@@ -186,7 +195,7 @@
     "source": "https://stackoverflow.com/a/192823",
     "popularity": 428,
     "tags": [],
-    "content": "try {\n\n} finally { // should never happen \n\n}"
+    "content": "try {\n\n} finally { // should never happen\n\n}"
   },
   {
     "id": 22,
@@ -213,7 +222,7 @@
     "source": "https://stackoverflow.com/a/780361",
     "popularity": 363,
     "tags": [],
-    "content": "#Christmas tree initializer  \n    toConnect = []  \n    toRead =   [  ]  \n    toWrite = [    ]   \n    primes = [      ]  \n    responses = {}  \n    remaining = {}"
+    "content": "#Christmas tree initializer\n    toConnect = []\n    toRead =   [  ]\n    toWrite = [    ]\n    primes = [      ]\n    responses = {}\n    remaining = {}"
   },
   {
     "id": 25,
@@ -231,7 +240,7 @@
     "source": "https://stackoverflow.com/a/184854",
     "popularity": 352,
     "tags": [],
-    "content": "{ \n  { \n    while (.. ){ \n      if (..){\n          }\n      for (.. ){ \n          }\n         .... (just putting in the control flow here, imagine another few hundred ifs)\n      if(..)   {\n            if(..)     {\n                   if(..)   {\n                ...\n                (another few hundred brackets)\n                       }\n                  }\n         } //endif"
+    "content": "{\n  {\n    while (.. ){\n      if (..){\n          }\n      for (.. ){\n          }\n         .... (just putting in the control flow here, imagine another few hundred ifs)\n      if(..)   {\n            if(..)     {\n                   if(..)   {\n                ...\n                (another few hundred brackets)\n                       }\n                  }\n         } //endif"
   },
   {
     "id": 27,
@@ -249,7 +258,7 @@
     "source": "https://stackoverflow.com/a/185550",
     "popularity": 351,
     "tags": [],
-    "content": "//This code sucks, you know it and I know it.  \n//Move on and call me an idiot later."
+    "content": "//This code sucks, you know it and I know it.\n//Move on and call me an idiot later."
   },
   {
     "id": 29,
@@ -384,7 +393,7 @@
     "source": "https://stackoverflow.com/a/694644",
     "popularity": 212,
     "tags": [],
-    "content": "//Dear future me. Please forgive me. \n//I can't even begin to express how sorry I am."
+    "content": "//Dear future me. Please forgive me.\n//I can't even begin to express how sorry I am."
   },
   {
     "id": 44,
@@ -555,7 +564,7 @@
     "source": "https://stackoverflow.com/a/189740",
     "popularity": 109,
     "tags": [],
-    "content": "// I know the line below is wrong, but it came that way from our IP vendor, and \n// the driver won't work if you \"fix\" it. I've had to revert this change 4 times\n// now. Leave it alone, or I will hunt you down and hurt you\nif (r = 0) {\n    /* bunch of code here */\n}\nelse\n{\n   /* even more code here */\n}"
+    "content": "// I know the line below is wrong, but it came that way from our IP vendor, and\n// the driver won't work if you \"fix\" it. I've had to revert this change 4 times\n// now. Leave it alone, or I will hunt you down and hurt you\nif (r = 0) {\n    /* bunch of code here */\n}\nelse\n{\n   /* even more code here */\n}"
   },
   {
     "id": 63,
@@ -681,7 +690,7 @@
     "source": "https://stackoverflow.com/a/766324",
     "popularity": 92,
     "tags": [],
-    "content": "def format_ticket_content(text, recursive = true)\n  if text.is_a?(TicketNote)\n    note = text\n    text = note.content\n  else\n    note = nil\n  end\n\n  ## Safety pig has arrived!\n  text = h(text)\n  ##                               _\n  ##  _._ _..._ .-',     _.._(`))\n  ## '-. `     '  /-._.-'    ',/\n  ##    )         \\            '.\n  ##   / _    _    |             \\\n  ##  |  a    a    /              |\n  ##  \\   .-.                     ;  \n  ##   '-('' ).-'       ,'       ;\n  ##      '-;           |      .'\n  ##         \\           \\    /\n  ##         | 7  .__  _.-\\   \\\n  ##         | |  |  ``/  /`  /\n  ##        /,_|  |   /,_/   /\n  ##           /,_/      '`-'\n  ##"
+    "content": "def format_ticket_content(text, recursive = true)\n  if text.is_a?(TicketNote)\n    note = text\n    text = note.content\n  else\n    note = nil\n  end\n\n  ## Safety pig has arrived!\n  text = h(text)\n  ##                               _\n  ##  _._ _..._ .-',     _.._(`))\n  ## '-. `     '  /-._.-'    ',/\n  ##    )         \\            '.\n  ##   / _    _    |             \\\n  ##  |  a    a    /              |\n  ##  \\   .-.                     ;\n  ##   '-('' ).-'       ,'       ;\n  ##      '-;           |      .'\n  ##         \\           \\    /\n  ##         | 7  .__  _.-\\   \\\n  ##         | |  |  ``/  /`  /\n  ##        /,_|  |   /,_/   /\n  ##           /,_/      '`-'\n  ##"
   },
   {
     "id": 77,
@@ -789,7 +798,7 @@
     "source": "https://stackoverflow.com/a/215166",
     "popularity": 63,
     "tags": [],
-    "content": "/* Mark: If there's one thing you learn from this code, it is this...\n   Never, ever fly Air France.  Their customer service is absolutely\n   the worst.  I've never heard the words \"That's not my problem\" as \n   many times as I have from their staff -- It should, without doubt\n   be their corporate motto if it isn't already.  Don't bother giving \n   them business because you're just a pain in their side and they\n   will be sure to let you know the first time you speak to them.\n\n   If you ever want to make me happy just tell me that you, too, will\n   never fly Air France again either (in spite of their excellent\n   cuisine). \n\n   Update by oej: The merger with KLM has transferred this\n   behaviour to KLM as well. \n   Don't bother giving them business either...\n\n   Only if you want to travel randomly without luggage, you\n   might pick either of them.\n   */"
+    "content": "/* Mark: If there's one thing you learn from this code, it is this...\n   Never, ever fly Air France.  Their customer service is absolutely\n   the worst.  I've never heard the words \"That's not my problem\" as\n   many times as I have from their staff -- It should, without doubt\n   be their corporate motto if it isn't already.  Don't bother giving\n   them business because you're just a pain in their side and they\n   will be sure to let you know the first time you speak to them.\n\n   If you ever want to make me happy just tell me that you, too, will\n   never fly Air France again either (in spite of their excellent\n   cuisine).\n\n   Update by oej: The merger with KLM has transferred this\n   behaviour to KLM as well.\n   Don't bother giving them business either...\n\n   Only if you want to travel randomly without luggage, you\n   might pick either of them.\n   */"
   },
   {
     "id": 89,
@@ -816,7 +825,7 @@
     "source": "https://stackoverflow.com/a/187183",
     "popularity": 56,
     "tags": [],
-    "content": "public class Contact\n{\n    //...    \n\n    /// <summary>\n    /// Gets or sets the name of the first.\n    /// </summary>\n    /// <value>The name of the first.</value>\n    public string FirstName\n    {\n        get { return _firstName; }\n        set { _firstName = value; }\n    }\n}"
+    "content": "public class Contact\n{\n    //...\n\n    /// <summary>\n    /// Gets or sets the name of the first.\n    /// </summary>\n    /// <value>The name of the first.</value>\n    public string FirstName\n    {\n        get { return _firstName; }\n        set { _firstName = value; }\n    }\n}"
   },
   {
     "id": 92,
@@ -897,7 +906,7 @@
     "source": "https://stackoverflow.com/a/194393",
     "popularity": 49,
     "tags": [],
-    "content": "// Any maintenance developer who can't quote entire Monty Python\n// movies from memory has no business being a developer. \nconst string LancelotsFavoriteColor = \"$0204FB\""
+    "content": "// Any maintenance developer who can't quote entire Monty Python\n// movies from memory has no business being a developer.\nconst string LancelotsFavoriteColor = \"$0204FB\""
   },
   {
     "id": 101,
@@ -987,7 +996,7 @@
     "source": "https://stackoverflow.com/a/204235",
     "popularity": 44,
     "tags": [],
-    "content": "/*\n\n** The author disclaims copyright to this source code.  In place of             \n** a legal notice, here is a blessing:                                          \n**                                                                              \n**    May you do good and not evil.                                             \n**    May you find forgiveness for yourself and forgive others.                 \n**    May you share freely, never taking more than you give.\n\n*/"
+    "content": "/*\n\n** The author disclaims copyright to this source code.  In place of\n** a legal notice, here is a blessing:\n**\n**    May you do good and not evil.\n**    May you find forgiveness for yourself and forgive others.\n**    May you share freely, never taking more than you give.\n\n*/"
   },
   {
     "id": 111,
@@ -996,7 +1005,7 @@
     "source": "https://stackoverflow.com/a/769077",
     "popularity": 42,
     "tags": [],
-    "content": "/* The License:\nYou (from this point on referred to as The You) are hereby \ngranted by me (from this point on referred to as The Me) \nlicense to knock yourself silly with this template. \nBy using this template The You implicitly accepts this \nlicense and pledges solemnly to never claim creative \nownership of any graphics, code, concepts, eggs, bacon, ideas, \ncolors, shapes, hypertext-transfer protocols or other conduits \nof the visual splendor thatis this template. \n\nThe Me, in turn, pledges equally solemnly to be far too \nlazy to ever check up on you, so if you do manage to pull \nsome chicks The Me won't have a cow. \nHowever The Me would be sorely disappointed if The You \nwere to try and sell or distribute this work without \nacknowledging The Me. Seriously. The Me will come down on \nThe You like a large quantitiy of hard and heavy objects \nthat in large quantities may be harmful and possibly even \nlethal to The You; So don't even think about it, The Buster.\n*/"
+    "content": "/* The License:\nYou (from this point on referred to as The You) are hereby\ngranted by me (from this point on referred to as The Me)\nlicense to knock yourself silly with this template.\nBy using this template The You implicitly accepts this\nlicense and pledges solemnly to never claim creative\nownership of any graphics, code, concepts, eggs, bacon, ideas,\ncolors, shapes, hypertext-transfer protocols or other conduits\nof the visual splendor thatis this template.\n\nThe Me, in turn, pledges equally solemnly to be far too\nlazy to ever check up on you, so if you do manage to pull\nsome chicks The Me won't have a cow.\nHowever The Me would be sorely disappointed if The You\nwere to try and sell or distribute this work without\nacknowledging The Me. Seriously. The Me will come down on\nThe You like a large quantitiy of hard and heavy objects\nthat in large quantities may be harmful and possibly even\nlethal to The You; So don't even think about it, The Buster.\n*/"
   },
   {
     "id": 112,
@@ -1059,7 +1068,7 @@
     "source": "https://stackoverflow.com/a/195187",
     "popularity": 37,
     "tags": [],
-    "content": "/*\n\n* @author Andrew Asta\n*/\npublic class AstaClass{\n\n    private String astaVar1;    \n    private String astaVar2;    \n    private String astaVar3;    \n    private String astaVar4;    \n    private String astaVar5;    \n    private String astaVar6;    \n    private String astaVar7;    \n    private String astaVar8;    \n    private String astaVar9;    \n    private String astaVar10;   \n\n    public void AstaSaysGetData(){\n        //JDBC statement to populate astavars 1 through 10\n        //...\n        String astaSqlStatment = \"Select astaCol1, astaCol2, astaCol3... From AstaTable Where...\";\n        //..\n        //...\n    }\n\n    //Perform data manipulation on astavars...\n    public void AstaSaysGaaGaa(){\n          [removed for sake of brevity]\n    }\n\n\n    //Perform more data manipulation on astavars...\n    public void AstaSaysGooGoO(){\n        [removed for sake of brevity]\n    }\n\n    public void AstaSaysPersist(){      \n        //JDBC statement to save astavars to DB \n        String astaSqlStatment = \"Update AstaTable set astaCol1 = @astaVar1\n                                                  , set astaCol2 = @astaVar2\n                                                  , set astaCol3 = astaCol3... \n                                                  Where...\";\n    }\n}"
+    "content": "/*\n\n* @author Andrew Asta\n*/\npublic class AstaClass{\n\n    private String astaVar1;\n    private String astaVar2;\n    private String astaVar3;\n    private String astaVar4;\n    private String astaVar5;\n    private String astaVar6;\n    private String astaVar7;\n    private String astaVar8;\n    private String astaVar9;\n    private String astaVar10;\n\n    public void AstaSaysGetData(){\n        //JDBC statement to populate astavars 1 through 10\n        //...\n        String astaSqlStatment = \"Select astaCol1, astaCol2, astaCol3... From AstaTable Where...\";\n        //..\n        //...\n    }\n\n    //Perform data manipulation on astavars...\n    public void AstaSaysGaaGaa(){\n          [removed for sake of brevity]\n    }\n\n\n    //Perform more data manipulation on astavars...\n    public void AstaSaysGooGoO(){\n        [removed for sake of brevity]\n    }\n\n    public void AstaSaysPersist(){\n        //JDBC statement to save astavars to DB\n        String astaSqlStatment = \"Update AstaTable set astaCol1 = @astaVar1\n                                                  , set astaCol2 = @astaVar2\n                                                  , set astaCol3 = astaCol3...\n                                                  Where...\";\n    }\n}"
   },
   {
     "id": 119,
@@ -1113,7 +1122,7 @@
     "source": "https://stackoverflow.com/a/782502",
     "popularity": 35,
     "tags": [],
-    "content": "//**************************************\n// Dear code maintainer:\n//\n// This source contains COM interfaces, not to be confused with interfaces \n// of any other sort, please do not just willy-nilly add additional methods \n// to these interfaces as they are truely immutable, unlike the interfaces \n// that other software vendors like Microsoft maintain.  IF you need to add \n// new functionality, then go thru the trouble of creating a NEW interface \n// and implement this functionality on only the objects you need.  \n//\n// While the money is good for fixing all of the problems caused by not \n// following the rules, I would rather work on things which actually have\n// an impact on the future of the product rather than curse and yell \n// obsenities at the screen because someone didn't bother to understand the\n// true meaning of IMMUTABLE.  \n//**************************************"
+    "content": "//**************************************\n// Dear code maintainer:\n//\n// This source contains COM interfaces, not to be confused with interfaces\n// of any other sort, please do not just willy-nilly add additional methods\n// to these interfaces as they are truely immutable, unlike the interfaces\n// that other software vendors like Microsoft maintain.  IF you need to add\n// new functionality, then go thru the trouble of creating a NEW interface\n// and implement this functionality on only the objects you need.\n//\n// While the money is good for fixing all of the problems caused by not\n// following the rules, I would rather work on things which actually have\n// an impact on the future of the product rather than curse and yell\n// obsenities at the screen because someone didn't bother to understand the\n// true meaning of IMMUTABLE.\n//**************************************"
   },
   {
     "id": 125,
@@ -1212,7 +1221,7 @@
     "source": "https://stackoverflow.com/a/766208",
     "popularity": 28,
     "tags": [],
-    "content": "//        .==.        .==.          \n//       //`^\\\\      //^`\\\\         \n//      // ^ ^\\(\\__/)/^ ^^\\\\        \n//     //^ ^^ ^/6  6\\ ^^ ^ \\\\       \n//    //^ ^^ ^/( .. )\\^ ^ ^ \\\\      \n//   // ^^ ^/\\| v\"\"v |/\\^ ^ ^\\\\     \n//  // ^^/\\/ /  `~~`  \\ \\/\\^ ^\\\\    \n//  -----------------------------\n/// HERE BE DRAGONS"
+    "content": "//        .==.        .==.\n//       //`^\\\\      //^`\\\\\n//      // ^ ^\\(\\__/)/^ ^^\\\\\n//     //^ ^^ ^/6  6\\ ^^ ^ \\\\\n//    //^ ^^ ^/( .. )\\^ ^ ^ \\\\\n//   // ^^ ^/\\| v\"\"v |/\\^ ^ ^\\\\\n//  // ^^/\\/ /  `~~`  \\ \\/\\^ ^\\\\\n//  -----------------------------\n/// HERE BE DRAGONS"
   },
   {
     "id": 136,
@@ -1221,7 +1230,7 @@
     "source": "https://stackoverflow.com/a/765147",
     "popularity": 28,
     "tags": [],
-    "content": "//The following 1056 lines of code in this next method \n//is a line by line port from VB.NET to C#.\n//I ported this code but did not write the original code.\n//It remains to me a mystery as to what\n//the business logic is trying to accomplish here other than to serve as\n//some sort of a compensation shell game invented by a den of thieves.\n//Oh well, everyone wants this stuff to work the same as before.\n//I guess the devil you know is better than the devil you don't."
+    "content": "//The following 1056 lines of code in this next method\n//is a line by line port from VB.NET to C#.\n//I ported this code but did not write the original code.\n//It remains to me a mystery as to what\n//the business logic is trying to accomplish here other than to serve as\n//some sort of a compensation shell game invented by a den of thieves.\n//Oh well, everyone wants this stuff to work the same as before.\n//I guess the devil you know is better than the devil you don't."
   },
   {
     "id": 137,
@@ -1266,7 +1275,7 @@
     "source": "https://stackoverflow.com/a/616551",
     "popularity": 24,
     "tags": [],
-    "content": "...\n\n// get the units from the form \nint numUnits = Integer.parseInt(request.getParameter(\"num_pieces\")); // this break at random times\n\n//price \nfloat price = Float.parseFloat(request.getParameter(\"price\")); // same as above\n\n// Under certain conditions the following code blows up. I don't know those conditions.\nfloat pricePerUnit = price / (float)numUnits;\n\n..."
+    "content": "...\n\n// get the units from the form\nint numUnits = Integer.parseInt(request.getParameter(\"num_pieces\")); // this break at random times\n\n//price\nfloat price = Float.parseFloat(request.getParameter(\"price\")); // same as above\n\n// Under certain conditions the following code blows up. I don't know those conditions.\nfloat pricePerUnit = price / (float)numUnits;\n\n..."
   },
   {
     "id": 142,
@@ -1437,7 +1446,7 @@
     "source": "https://stackoverflow.com/a/195418",
     "popularity": 19,
     "tags": [],
-    "content": "/* This comment was just added in order to check-in a file that was last \nchecked in by [Insert Programmer FirstName] \"Back-to-the-Future\" [Insert \nProgrammer LastName]. While testing for year 2000 problems, he accidentally \nchecked-in this file while his machine clock was set forward to the year 2000. \nThis meant that the source code was always newer than the object file and \ncompiled every time the code was built. I'm checking this file in again to \nfix that. */"
+    "content": "/* This comment was just added in order to check-in a file that was last\nchecked in by [Insert Programmer FirstName] \"Back-to-the-Future\" [Insert\nProgrammer LastName]. While testing for year 2000 problems, he accidentally\nchecked-in this file while his machine clock was set forward to the year 2000.\nThis meant that the source code was always newer than the object file and\ncompiled every time the code was built. I'm checking this file in again to\nfix that. */"
   },
   {
     "id": 161,
@@ -1455,7 +1464,7 @@
     "source": "https://stackoverflow.com/a/779818",
     "popularity": 18,
     "tags": [],
-    "content": "# There is a bug in the next line.  $searchParameters != {} will always return true, because {} is creating\n# a new hash reference on the fly, and the inequality operater is comparing the memory location of it\n# to the memory location of $searchParameters, and they will always be different. \n# This means that the following code will always get executed as long as $nodes is defined.\n# I'm leaving it there because it has always been there, and although I'm sure it was originally meant to\n# mean %$searchParameters (essentially \"is this hash not empty\"), I'm afraid to change it.\nif ( $nodes && $searchParameters != {} )\n{"
+    "content": "# There is a bug in the next line.  $searchParameters != {} will always return true, because {} is creating\n# a new hash reference on the fly, and the inequality operater is comparing the memory location of it\n# to the memory location of $searchParameters, and they will always be different.\n# This means that the following code will always get executed as long as $nodes is defined.\n# I'm leaving it there because it has always been there, and although I'm sure it was originally meant to\n# mean %$searchParameters (essentially \"is this hash not empty\"), I'm afraid to change it.\nif ( $nodes && $searchParameters != {} )\n{"
   },
   {
     "id": 163,
@@ -1572,7 +1581,7 @@
     "source": "https://stackoverflow.com/a/717461",
     "popularity": 16,
     "tags": [],
-    "content": "/**\n   * Returns cookies according to the filters specified.\n   * \n   * @return array  Cookies!  Nom nom nom nom nom.\n   */\n public function data_getCookies($uid, $name) {"
+    "content": "/**\n   * Returns cookies according to the filters specified.\n   *\n   * @return array  Cookies!  Nom nom nom nom nom.\n   */\n public function data_getCookies($uid, $name) {"
   },
   {
     "id": 176,
@@ -1707,7 +1716,7 @@
     "source": "https://stackoverflow.com/a/240381",
     "popularity": 13,
     "tags": [],
-    "content": "int32_t Interpolate1DSignal(\n  Array1D<float64>::Handle hfInputSamples,         // samples to be interpolated\n  Array1D<float64>::Handle hfInterpolationFilter,  // polyphase filter coefficients,\n  int32_t iFilterInterpolationFactor,              // # of \"rows\" in polyphase filter\n  int32_t iFilterLength,                           // Length of each row in filter\n  float64 fInterpolationFactor,                    // Factor to interpolate the\n                                                   // signal by\n  float64 fTimingOffset,                           // Offset into the signal (units   \n                                                   // of samples)\n  Array1D<float64>::Handle hfOutputSamples         // left as an exercise for the reader\n);"
+    "content": "int32_t Interpolate1DSignal(\n  Array1D<float64>::Handle hfInputSamples,         // samples to be interpolated\n  Array1D<float64>::Handle hfInterpolationFilter,  // polyphase filter coefficients,\n  int32_t iFilterInterpolationFactor,              // # of \"rows\" in polyphase filter\n  int32_t iFilterLength,                           // Length of each row in filter\n  float64 fInterpolationFactor,                    // Factor to interpolate the\n                                                   // signal by\n  float64 fTimingOffset,                           // Offset into the signal (units\n                                                   // of samples)\n  Array1D<float64>::Handle hfOutputSamples         // left as an exercise for the reader\n);"
   },
   {
     "id": 191,
@@ -2130,7 +2139,7 @@
     "source": "https://stackoverflow.com/a/216139",
     "popularity": 10,
     "tags": [],
-    "content": "// fix for groupid > 9 \n// if groupid ever gets to 100 everything will break (again)\n\nif (groupid < 10) {\ngroupid = \"0\" + groupid;\n}"
+    "content": "// fix for groupid > 9\n// if groupid ever gets to 100 everything will break (again)\n\nif (groupid < 10) {\ngroupid = \"0\" + groupid;\n}"
   },
   {
     "id": 238,
@@ -2157,7 +2166,7 @@
     "source": "https://stackoverflow.com/a/615872",
     "popularity": 10,
     "tags": [],
-    "content": "/************************************************************\n        *                                                           *\n        *  .=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.       *\n        *   |                     ______                     |      *\n        *   |                  .-\"      \"-.                  |      *\n        *   |                 /            \\                 |      *\n        *   |     _          |              |          _     |      *\n        *   |    ( \\         |,  .-.  .-.  ,|         / )    |      *\n        *   |     > \"=._     | )(__/  \\__)( |     _.=\" <     |      *\n        *   |    (_/\"=._\"=._ |/     /\\     \\| _.=\"_.=\"\\_)    |      *\n        *   |           \"=._\"(_     ^^     _)\"_.=\"           |      *\n        *   |               \"=\\__|IIIIII|__/=\"               |      *\n        *   |              _.=\"| \\IIIIII/ |\"=._              |      *\n        *   |    _     _.=\"_.=\"\\          /\"=._\"=._     _    |      *\n        *   |   ( \\_.=\"_.=\"     `--------`     \"=._\"=._/ )   |      *\n        *   |    > _.=\"                            \"=._ <    |      *\n        *   |   (_/                                    \\_)   |      *\n        *   |                                                |      *\n        *   '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='      *\n        *                                                           *\n        *      LASCIATE OGNI SPERANZA, VOI CH'ENTRATE               *\n        *************************************************************/"
+    "content": "        /************************************************************\n        *                                                           *\n        *  .=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.       *\n        *   |                     ______                     |      *\n        *   |                  .-\"      \"-.                  |      *\n        *   |                 /            \\                 |      *\n        *   |     _          |              |          _     |      *\n        *   |    ( \\         |,  .-.  .-.  ,|         / )    |      *\n        *   |     > \"=._     | )(__/  \\__)( |     _.=\" <     |      *\n        *   |    (_/\"=._\"=._ |/     /\\     \\| _.=\"_.=\"\\_)    |      *\n        *   |           \"=._\"(_     ^^     _)\"_.=\"           |      *\n        *   |               \"=\\__|IIIIII|__/=\"               |      *\n        *   |              _.=\"| \\IIIIII/ |\"=._              |      *\n        *   |    _     _.=\"_.=\"\\          /\"=._\"=._     _    |      *\n        *   |   ( \\_.=\"_.=\"     `--------`     \"=._\"=._/ )   |      *\n        *   |    > _.=\"                            \"=._ <    |      *\n        *   |   (_/                                    \\_)   |      *\n        *   |                                                |      *\n        *   '-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-='      *\n        *                                                           *\n        *      LASCIATE OGNI SPERANZA, VOI CH'ENTRATE               *\n        *************************************************************/"
   },
   {
     "id": 241,
@@ -2175,7 +2184,7 @@
     "source": "https://stackoverflow.com/a/766105",
     "popularity": 10,
     "tags": [],
-    "content": "/**\n * Not even your mum thinks you're special if you call this method\n */    \nonlyYourMumThinksYoureSpecialIfYouCallThisMethod() {...}"
+    "content": "/**\n * Not even your mum thinks you're special if you call this method\n */\nonlyYourMumThinksYoureSpecialIfYouCallThisMethod() {...}"
   },
   {
     "id": 243,
@@ -2373,7 +2382,7 @@
     "source": "https://stackoverflow.com/a/217681",
     "popularity": 8,
     "tags": [],
-    "content": "Without a crash \n\nOr mighty bang \n\nThe sync disk \n\nDid it's process hang"
+    "content": "Without a crash\n\nOr mighty bang\n\nThe sync disk\n\nDid it's process hang"
   },
   {
     "id": 265,
@@ -2472,7 +2481,7 @@
     "source": "https://stackoverflow.com/a/769590",
     "popularity": 8,
     "tags": [],
-    "content": "/**\n * This run through all the guipublisherbuyRecord , the records those have\n * diff. is buytotal and prior to buy isRecommendedBillingClickedWarning flag\n * is set if priously RB ran and this time not.\n * \n * --What?\n * \n * @return\n * @throws AppException\n */"
+    "content": "/**\n * This run through all the guipublisherbuyRecord , the records those have\n * diff. is buytotal and prior to buy isRecommendedBillingClickedWarning flag\n * is set if priously RB ran and this time not.\n *\n * --What?\n *\n * @return\n * @throws AppException\n */"
   },
   {
     "id": 276,
@@ -2544,7 +2553,7 @@
     "source": "https://stackoverflow.com/a/713861",
     "popularity": 7,
     "tags": [],
-    "content": "catch (Exception ex)\n{ \n    // just die already.\n}"
+    "content": "catch (Exception ex)\n{\n    // just die already.\n}"
   },
   {
     "id": 284,
@@ -2625,7 +2634,7 @@
     "source": "https://stackoverflow.com/a/185989",
     "popularity": 7,
     "tags": [],
-    "content": "try\n{               \n    // Some database logic\n}\ncatch (Exception $ex)\n{\n    // sure, it looks silly and I honestly cant remember what code used to go here... but i swear i will\n    // find a use for this code.... eventually....\n    throw $ex;\n}"
+    "content": "try\n{\n    // Some database logic\n}\ncatch (Exception $ex)\n{\n    // sure, it looks silly and I honestly cant remember what code used to go here... but i swear i will\n    // find a use for this code.... eventually....\n    throw $ex;\n}"
   },
   {
     "id": 293,
@@ -2814,7 +2823,7 @@
     "source": "https://stackoverflow.com/a/222164",
     "popularity": 5,
     "tags": [],
-    "content": "struct core_unlocker\n{\n    core_unlocker(lock)\n    {\n        m_lock = lock\n        unlock(lock)  //Abandon All Locks, Ye Who Enter Core!\n    }\n    ~core_unlocker()\n    {\n        lock(m_lock)\n    }  \n    private:\n    Corelock m_lock;\n}"
+    "content": "struct core_unlocker\n{\n    core_unlocker(lock)\n    {\n        m_lock = lock\n        unlock(lock)  //Abandon All Locks, Ye Who Enter Core!\n    }\n    ~core_unlocker()\n    {\n        lock(m_lock)\n    }\n    private:\n    Corelock m_lock;\n}"
   },
   {
     "id": 314,
@@ -2823,7 +2832,7 @@
     "source": "https://stackoverflow.com/a/377591",
     "popularity": 5,
     "tags": [],
-    "content": "/**\n*@return the value \n*@param key: the id of the list of instruments\n*@PS this function is a violation of all the laws of the \n*software engineering, \n*commons sense, highway code \n*and ONU decision about the coding.\nThat sh*t...\n*/"
+    "content": "/**\n*@return the value\n*@param key: the id of the list of instruments\n*@PS this function is a violation of all the laws of the\n*software engineering,\n*commons sense, highway code\n*and ONU decision about the coding.\nThat sh*t...\n*/"
   },
   {
     "id": 315,
@@ -2913,7 +2922,7 @@
     "source": "https://stackoverflow.com/a/771828",
     "popularity": 5,
     "tags": [],
-    "content": "catch\n{     \n    // you’re fucked\n    // write out the file somewhere and start screaming “Connection down! Connection down!”\n}"
+    "content": "catch\n{\n    // you’re fucked\n    // write out the file somewhere and start screaming “Connection down! Connection down!”\n}"
   },
   {
     "id": 325,
@@ -2922,7 +2931,7 @@
     "source": "https://stackoverflow.com/a/779999",
     "popularity": 5,
     "tags": [],
-    "content": "\"\"\".........................:~+?7$$$ZZZZZZZ$$$7I+=:,............................\n........................~+7ZZZZZOZZOOZOZZOZOZOOZZZZZ7?~:........................\n......................,~7$ZZOOOOOZOZOZOZZOOZZOZOOOOOZ$$I,.......................\n...................,=I$OOZOZOZZOOOZZOZOOOOZOZZZOOZZZOZZOZI=:....................\n.................:?$ZZOOZZOZOZZOOOZZZOOZOZOZZZZZZZOZZOZOOOZ$I~..................\n................IZOOOZOOOZZZOZZZZOZZOZOOOOZOZZZOOZZZZOOZOZZZOZ7=................\n...............~ZZOZZOZOOZOOZOZOZZOZOZOZZZZZOZOZZOZOOZOZZOOOOZZ7................\n.............:IZOOZOZZZZOZOZZOZOOZOZOZOZZOZOOZOOOOZOZZZZZOZOZZOOI~..............\n...........,+$ZOOZZOZOZOZOZOZZOZOZOOZZOZZOZZOZOOOOZOZZOZZOOZOOOOO$?:............\n..........:IZZOOOZOZZZZOOZOOZOZOZZOZOZZZZOZOOZOZZOZOZOZOOOOOOOZZZOZ7~...........\n..........+$OOZZZOZZOOZOOZZZZOZZOZOZZOZOOOZOZOZZOZOZOZOOOOOZ$$77I77$+:..........\n........,?$OOZZZZZZZOZOOOZOZZOZZZOOZOZOOOOZOZZZOOZOOZOOO7?~:,.......,...........\n........+ZOOZZZZZOZOOZOOZZZZOZZOOOZZZOZOZOOZZOZOZZZOOO$?........................\n........$ZOZZZOZZZZOZOOZZZOZOZZOOOOOOOOOOOZOZOZZOZOO$?,.........................\n.......:ZOOZOZOZZOOZZOZOZOZOOOZOOOOOOOOOOOOOOOZOZOOZI:..........................\n.......+OOOZOOZOZOZOZZZOOZOOZOOO$I+=~:::~+I$OOOOOOZ?:........,:=,...............\n......:7ZOOZOZZOOOZOZOZOOZOOZ$I=............:?$OOZ7:.......:IZOOZ?,.............\n......=$OZOZOOZOOOOOZOZZOOZ7=,................:?O$+.......~7OOOOOZ+,............\n.....,?$OOOOOZZZZOOOOOOZOZ?,....................ZZ=.......=$OOZOOZ+,............\n.....:IZOZZ$777I7$ZOOOOOZ7~.....................$Z=.......~7OOOOO7=.............\n.....:+?~:,.......,~IZOO7~........~+II?=........?$?,.......:I$ZZ?:..............\n.....................+ZO=,......:IOOOOOZ:.......=7$~............................\n.....................:IO~.......=OOZOZOO=,......~7O7~...........................\n...........:~:.......:IO~.......+OOOOZOO=.......~78Z?,.................,:.......\n..........:IZ7~......+ZO~.......:7OOOOO$,.......+$OOZ7=,.............:?$=.......\n...........,,.....,=7ZOO+,.......,=II?=:........7OOOOOOZ=:,.....,:=I$ZOO=.......\n....................,:+$7=.....................~OOOZZZOOOZZ$$7$$ZOOOOOOZ=.......\n......................:?Z?,...................:?OZOOZOOZOOOOOOOOOOZOZOZO=.......\n............,::,.......,OO7:................,+$OOZOZOOZOZZOZOZZOOZOZOZOO=.......\n...........~$8OI........$OOZI~,.........,:=IZOOZOZOZOZOOOZOZOZOOOZZZOZOO=.......\n...........:??=:.......:OOOOOZZ7+=~~==+?$ZOOOOZOOOZOZOZOOZOZOZZOZZOZOZZO=.......\n............::,.......,+OOZOOOOO$7777$$ZOOOOOZOZZZZOZOZZZOOZOZZOOOZOOZOO=.......\n.....................=7OOZOOZOOZOOOOOOOOOZZZOZOZZOZOZOZOOOZOZOZZOZOOZOOO=.......\n................,:=I$OOOZZOOOZOOOOOZOZOZZZZZOOZZZOZOZZZOOZOOZOZOZOZOZOOZ=.......\n...........:~+?7ZOOOOOOZZZOZOOZOZOOZOZOZZOZZOZOZZZZOZOZZOZOZOZZOZOOZOOOZ=.......\n........$$ZOOOOOOOOZOZOZZZZOZOZOOOZZZOZZZOZOOZOZZZZZZZZOOOZOOZZZOZOOZOOZ=.......\n.......~OOZOOZZOOZZZZZZOOZOZOZOZZOOZOOZZZOZZOZOZZOZZZOZOOOOOZOZOZOOZOOOZ=.......\n.......~OOZOOZZOZZOZOZZOZZOZOOZOZOOZOZOZZOZOOZOZZOZOZOZOZOOZOZOOOZOOZOZO=.......\n.......~OOZZZOZOOOZOZOZZOZOZOZOZOOZOOZOOOOZOZOOZOOOZOOOZOZZOZOZOOZZOOOOZ=.......\n.......~OOZZOZOZZZOOZOOZOZOZOZZOZZZZOZZZZOZOZZOOOOZ$ZZZZZZOZZZOZZOZOZZZO=.......\n.......~OOZZOO$??$OOZOOZZOOZOZOZ+~IZOOOZOZOOZZOOZI==IZOZZOZOOZOZZOZI~=7O=.......\n.......~OOZO$I:..~IZZZOZOZOZOZ$+...=7ZOOZOOZZOZZ=,..,=$ZZOZZZZZOZI~...,?=.......\n.......~OOOZI:....:IZOOOZZOOO$+:....~7ZOZOZOZOZ$,....,=$OOZOOOZOI~.....:~.......\n.......~OZI~........~IZZZOZ$?:........=IOOZZZ$+,.......,$ZOOOZZ7................\n.......=7~............~IOZI:............7ZO$+:..........,=7ZZ7=,................\n.......,,...............=~...............~=:..............,~=...................\n                                                               GlassGiant.com\"\"\" \nprint \"Hello World!\""
+    "content": "\"\"\".........................:~+?7$$$ZZZZZZZ$$$7I+=:,............................\n........................~+7ZZZZZOZZOOZOZZOZOZOOZZZZZ7?~:........................\n......................,~7$ZZOOOOOZOZOZOZZOOZZOZOOOOOZ$$I,.......................\n...................,=I$OOZOZOZZOOOZZOZOOOOZOZZZOOZZZOZZOZI=:....................\n.................:?$ZZOOZZOZOZZOOOZZZOOZOZOZZZZZZZOZZOZOOOZ$I~..................\n................IZOOOZOOOZZZOZZZZOZZOZOOOOZOZZZOOZZZZOOZOZZZOZ7=................\n...............~ZZOZZOZOOZOOZOZOZZOZOZOZZZZZOZOZZOZOOZOZZOOOOZZ7................\n.............:IZOOZOZZZZOZOZZOZOOZOZOZOZZOZOOZOOOOZOZZZZZOZOZZOOI~..............\n...........,+$ZOOZZOZOZOZOZOZZOZOZOOZZOZZOZZOZOOOOZOZZOZZOOZOOOOO$?:............\n..........:IZZOOOZOZZZZOOZOOZOZOZZOZOZZZZOZOOZOZZOZOZOZOOOOOOOZZZOZ7~...........\n..........+$OOZZZOZZOOZOOZZZZOZZOZOZZOZOOOZOZOZZOZOZOZOOOOOZ$$77I77$+:..........\n........,?$OOZZZZZZZOZOOOZOZZOZZZOOZOZOOOOZOZZZOOZOOZOOO7?~:,.......,...........\n........+ZOOZZZZZOZOOZOOZZZZOZZOOOZZZOZOZOOZZOZOZZZOOO$?........................\n........$ZOZZZOZZZZOZOOZZZOZOZZOOOOOOOOOOOZOZOZZOZOO$?,.........................\n.......:ZOOZOZOZZOOZZOZOZOZOOOZOOOOOOOOOOOOOOOZOZOOZI:..........................\n.......+OOOZOOZOZOZOZZZOOZOOZOOO$I+=~:::~+I$OOOOOOZ?:........,:=,...............\n......:7ZOOZOZZOOOZOZOZOOZOOZ$I=............:?$OOZ7:.......:IZOOZ?,.............\n......=$OZOZOOZOOOOOZOZZOOZ7=,................:?O$+.......~7OOOOOZ+,............\n.....,?$OOOOOZZZZOOOOOOZOZ?,....................ZZ=.......=$OOZOOZ+,............\n.....:IZOZZ$777I7$ZOOOOOZ7~.....................$Z=.......~7OOOOO7=.............\n.....:+?~:,.......,~IZOO7~........~+II?=........?$?,.......:I$ZZ?:..............\n.....................+ZO=,......:IOOOOOZ:.......=7$~............................\n.....................:IO~.......=OOZOZOO=,......~7O7~...........................\n...........:~:.......:IO~.......+OOOOZOO=.......~78Z?,.................,:.......\n..........:IZ7~......+ZO~.......:7OOOOO$,.......+$OOZ7=,.............:?$=.......\n...........,,.....,=7ZOO+,.......,=II?=:........7OOOOOOZ=:,.....,:=I$ZOO=.......\n....................,:+$7=.....................~OOOZZZOOOZZ$$7$$ZOOOOOOZ=.......\n......................:?Z?,...................:?OZOOZOOZOOOOOOOOOOZOZOZO=.......\n............,::,.......,OO7:................,+$OOZOZOOZOZZOZOZZOOZOZOZOO=.......\n...........~$8OI........$OOZI~,.........,:=IZOOZOZOZOZOOOZOZOZOOOZZZOZOO=.......\n...........:??=:.......:OOOOOZZ7+=~~==+?$ZOOOOZOOOZOZOZOOZOZOZZOZZOZOZZO=.......\n............::,.......,+OOZOOOOO$7777$$ZOOOOOZOZZZZOZOZZZOOZOZZOOOZOOZOO=.......\n.....................=7OOZOOZOOZOOOOOOOOOZZZOZOZZOZOZOZOOOZOZOZZOZOOZOOO=.......\n................,:=I$OOOZZOOOZOOOOOZOZOZZZZZOOZZZOZOZZZOOZOOZOZOZOZOZOOZ=.......\n...........:~+?7ZOOOOOOZZZOZOOZOZOOZOZOZZOZZOZOZZZZOZOZZOZOZOZZOZOOZOOOZ=.......\n........$$ZOOOOOOOOZOZOZZZZOZOZOOOZZZOZZZOZOOZOZZZZZZZZOOOZOOZZZOZOOZOOZ=.......\n.......~OOZOOZZOOZZZZZZOOZOZOZOZZOOZOOZZZOZZOZOZZOZZZOZOOOOOZOZOZOOZOOOZ=.......\n.......~OOZOOZZOZZOZOZZOZZOZOOZOZOOZOZOZZOZOOZOZZOZOZOZOZOOZOZOOOZOOZOZO=.......\n.......~OOZZZOZOOOZOZOZZOZOZOZOZOOZOOZOOOOZOZOOZOOOZOOOZOZZOZOZOOZZOOOOZ=.......\n.......~OOZZOZOZZZOOZOOZOZOZOZZOZZZZOZZZZOZOZZOOOOZ$ZZZZZZOZZZOZZOZOZZZO=.......\n.......~OOZZOO$??$OOZOOZZOOZOZOZ+~IZOOOZOZOOZZOOZI==IZOZZOZOOZOZZOZI~=7O=.......\n.......~OOZO$I:..~IZZZOZOZOZOZ$+...=7ZOOZOOZZOZZ=,..,=$ZZOZZZZZOZI~...,?=.......\n.......~OOOZI:....:IZOOOZZOOO$+:....~7ZOZOZOZOZ$,....,=$OOZOOOZOI~.....:~.......\n.......~OZI~........~IZZZOZ$?:........=IOOZZZ$+,.......,$ZOOOZZ7................\n.......=7~............~IOZI:............7ZO$+:..........,=7ZZ7=,................\n.......,,...............=~...............~=:..............,~=...................\n                                                               GlassGiant.com\"\"\"\nprint \"Hello World!\""
   },
   {
     "id": 326,
@@ -2949,7 +2958,7 @@
     "source": "https://stackoverflow.com/a/784725",
     "popularity": 5,
     "tags": [],
-    "content": "// We also add/subtract some points based on what's going on, on the bottom\n// row. (I think this is retarded, but apparently when I coded this up \n// back in 1999 I didn't.)"
+    "content": "// We also add/subtract some points based on what's going on, on the bottom\n// row. (I think this is retarded, but apparently when I coded this up\n// back in 1999 I didn't.)"
   },
   {
     "id": 329,
@@ -3237,7 +3246,7 @@
     "source": "https://stackoverflow.com/a/768732",
     "popularity": 4,
     "tags": [],
-    "content": "if(FAILED(hr))\n{\n    char fuck[256];\n    sprintf(fuck, \"GetBuffer() fucking fucked the fuck: %d\", hr);\n    MessageBoxA(0, fuck, fuck, MB_OK | MB_ICONERROR);\n    return;\n}\n\n\n// This is for Chris, since he gets all hot and horny over \"uint\" instead of \"unsigned int\"\n// ... or maybe he's just a lazy fuck. Who knows!?\nusing Ogre::uint; \n// movable texts, fucktory\nMovableObjectTextFactory* m_pMovableObjectTextFactory;\n\n\n// diarrhea... shitting CR from the string. complete run..."
+    "content": "if(FAILED(hr))\n{\n    char fuck[256];\n    sprintf(fuck, \"GetBuffer() fucking fucked the fuck: %d\", hr);\n    MessageBoxA(0, fuck, fuck, MB_OK | MB_ICONERROR);\n    return;\n}\n\n\n// This is for Chris, since he gets all hot and horny over \"uint\" instead of \"unsigned int\"\n// ... or maybe he's just a lazy fuck. Who knows!?\nusing Ogre::uint;\n// movable texts, fucktory\nMovableObjectTextFactory* m_pMovableObjectTextFactory;\n\n\n// diarrhea... shitting CR from the string. complete run..."
   },
   {
     "id": 361,
@@ -3246,7 +3255,7 @@
     "source": "https://stackoverflow.com/a/768732",
     "popularity": 4,
     "tags": [],
-    "content": "// unlock shit (duh, this comment is useless)\npixelBuffer->unlock();\n\n\n// :HACK: remove me after demo is shipped\nOf course, it's still in there ;)\n\n\n// it's 4am and I can't think of a decent error message.\n// my lead just fell asleep at his desk, so I can't ask him.\n// [name] went home because he didn't want to get divorced.\n// and so it's little ol' me, sitting here, comin up with an\n// error message for something that should never ever happen.\nASSERT0(in_len == max_in, \"http://www.youtube.com/watch?v=oHg5SJYRHA0\"); \n\n\n// you want hungarian, you GET hungarian!\nfor(int fcknglpidxcntvrI = 0; fcknglpidxcntvrI &lt; len; fcknglpidxcntvrI++)\n\n\nbool bKillSomethingAlive = false; // beating the dead horse instead"
+    "content": "// unlock shit (duh, this comment is useless)\npixelBuffer->unlock();\n\n\n// :HACK: remove me after demo is shipped\nOf course, it's still in there ;)\n\n\n// it's 4am and I can't think of a decent error message.\n// my lead just fell asleep at his desk, so I can't ask him.\n// [name] went home because he didn't want to get divorced.\n// and so it's little ol' me, sitting here, comin up with an\n// error message for something that should never ever happen.\nASSERT0(in_len == max_in, \"http://www.youtube.com/watch?v=oHg5SJYRHA0\");\n\n\n// you want hungarian, you GET hungarian!\nfor(int fcknglpidxcntvrI = 0; fcknglpidxcntvrI &lt; len; fcknglpidxcntvrI++)\n\n\nbool bKillSomethingAlive = false; // beating the dead horse instead"
   },
   {
     "id": 362,
@@ -3255,7 +3264,7 @@
     "source": "https://stackoverflow.com/a/768732",
     "popularity": 4,
     "tags": [],
-    "content": "// HACKOMATIC \n// HMM... HACKXOR?\n// HACK'O'ROONY\n// AR; yeah I know it's HACKsoup\n// HACK SHOT! DOMINATING!\n// HACK'KIDO\n// HACKku. sepukku. harakiri. kamikaze. ninja.\n// HACK'o'NEIL\n// HACKsaw"
+    "content": "// HACKOMATIC\n// HMM... HACKXOR?\n// HACK'O'ROONY\n// AR; yeah I know it's HACKsoup\n// HACK SHOT! DOMINATING!\n// HACK'KIDO\n// HACKku. sepukku. harakiri. kamikaze. ninja.\n// HACK'o'NEIL\n// HACKsaw"
   },
   {
     "id": 363,
@@ -3327,7 +3336,7 @@
     "source": "https://stackoverflow.com/a/237886",
     "popularity": 3,
     "tags": [],
-    "content": "// this code was written after a version trying to do {this} failed because of {reason},\n// previously we were doing {this} which failed because of {reason}. This is \n// now written {this} way so that {lots of reasons here}. If you want to touch\n// this code, please make sure that it produces the right answers when tested with:\n//\n// {some sort of unit test}"
+    "content": "// this code was written after a version trying to do {this} failed because of {reason},\n// previously we were doing {this} which failed because of {reason}. This is\n// now written {this} way so that {lots of reasons here}. If you want to touch\n// this code, please make sure that it produces the right answers when tested with:\n//\n// {some sort of unit test}"
   },
   {
     "id": 371,
@@ -3345,7 +3354,7 @@
     "source": "https://stackoverflow.com/a/348483",
     "popularity": 3,
     "tags": [],
-    "content": "//select is a royal pain in the ass where \n//the parameter passed to CreateQuery isn't actually the one that goes in the call\n//requiring this workaround.  Not sure how straight Linq to Objects does it."
+    "content": "//select is a royal pain in the ass where\n//the parameter passed to CreateQuery isn't actually the one that goes in the call\n//requiring this workaround.  Not sure how straight Linq to Objects does it."
   },
   {
     "id": 373,
@@ -3354,7 +3363,7 @@
     "source": "https://stackoverflow.com/a/348483",
     "popularity": 3,
     "tags": [],
-    "content": "//expressions have to be compiled in order to work with the method call on \n//straight Enumerable somehow, LINQ to objects itself magically does this.  \n//Reflector shows a mess, so I (Aaron) invented my own way.  God love unit tests!"
+    "content": "//expressions have to be compiled in order to work with the method call on\n//straight Enumerable somehow, LINQ to objects itself magically does this.\n//Reflector shows a mess, so I (Aaron) invented my own way.  God love unit tests!"
   },
   {
     "id": 374,
@@ -3363,7 +3372,7 @@
     "source": "https://stackoverflow.com/a/348483",
     "popularity": 3,
     "tags": [],
-    "content": "//ok, this is a hairy, dirty, and nasty piece of code\n  //the alternatives are substantially worse than this though\n  //i.e. when you do your own provider, LINQ assumes that\n  //you are going to implement your own expression tree visitor and\n  //do it all yourself.  Frankly, I still have xmas shopping to do\n  //and I really don't want us to be foobared when we get\n  //even more extension methods added to LINQ\n  //therefore, we are pulling execute based on taking the calling the \n  //standard execute on enumerable, but using our own class\n  //\n  //optimization can occur from here on an as needed basis, that is\n  //check for the value of mex.Method.Name, and write a handler for\n  //that method\n  //\n  //also, it may not be a bad idea to rather than do this reflection \n  //each and every time somehow cache the reflected methodinfos and do \n  //lookups that way that said, we need a complete red/green/refactor \n  //cycle here before I am touching that one"
+    "content": "//ok, this is a hairy, dirty, and nasty piece of code\n  //the alternatives are substantially worse than this though\n  //i.e. when you do your own provider, LINQ assumes that\n  //you are going to implement your own expression tree visitor and\n  //do it all yourself.  Frankly, I still have xmas shopping to do\n  //and I really don't want us to be foobared when we get\n  //even more extension methods added to LINQ\n  //therefore, we are pulling execute based on taking the calling the\n  //standard execute on enumerable, but using our own class\n  //\n  //optimization can occur from here on an as needed basis, that is\n  //check for the value of mex.Method.Name, and write a handler for\n  //that method\n  //\n  //also, it may not be a bad idea to rather than do this reflection\n  //each and every time somehow cache the reflected methodinfos and do\n  //lookups that way that said, we need a complete red/green/refactor\n  //cycle here before I am touching that one"
   },
   {
     "id": 375,
@@ -3444,7 +3453,7 @@
     "source": "https://stackoverflow.com/a/657831",
     "popularity": 3,
     "tags": [],
-    "content": "//If the Current Record is Getting End Dated, We should not create New History Entry. \n//We Just need to Update the Previous History Entry\n//If the History is already End Dated and the New Record is now removing End Date, Then \n//We should not update the Previous History End Date. \n//We Just need to Create the New History Record Only.\n//Alright.. \n//Alright.... \n//Enough Comments. Code it. :-)"
+    "content": "//If the Current Record is Getting End Dated, We should not create New History Entry.\n//We Just need to Update the Previous History Entry\n//If the History is already End Dated and the New Record is now removing End Date, Then\n//We should not update the Previous History End Date.\n//We Just need to Create the New History Record Only.\n//Alright..\n//Alright....\n//Enough Comments. Code it. :-)"
   },
   {
     "id": 384,
@@ -3489,7 +3498,7 @@
     "source": "https://stackoverflow.com/a/735928",
     "popularity": 3,
     "tags": [],
-    "content": "/* hack, hack, hack, hack, hack hack, hack, hack\n * hackity hack, oh wonderful hacks\n * wonderful hacks, oh wonderful hack, hack, hack\n * hack hack hack... and spam \n */"
+    "content": "/* hack, hack, hack, hack, hack hack, hack, hack\n * hackity hack, oh wonderful hacks\n * wonderful hacks, oh wonderful hack, hack, hack\n * hack hack hack... and spam\n */"
   },
   {
     "id": 389,
@@ -3498,7 +3507,7 @@
     "source": "https://stackoverflow.com/a/735928",
     "popularity": 3,
     "tags": [],
-    "content": "// yikes, we need to:\n/*\n *       o\n *      -|-     < US CROSSING PLATFORM\n *       |\\ \n ************************************************\n *       |          ^ PLATFORM           |\n *       |                           T   |\n *       |                      TROLL^   |\n */\n// right now:\n/*\n *   o ./_  | \n *  -|-[]\\  |  (_'_) () (\\) | ) \\|/ (S) < WALL\n *   |\\     |    ^ FRIENDLY MESSAGE FROM YOUR FRIENDS AT MICROSOFT\n *  ***********************************************\n *        | ^PLATFORM                       |\n *      ^ SPRAY CAN (IN HAND)\n */\npublic static class DefaultFonts\n{\n    public static string SansSerifPath\n    {\n        get { return @\"C:\\Windows\\Fonts\\arial.ttf\"; }\n    }\n    public static string SerifPath\n    {\n        get { return @\"C:\\Windows\\Fonts\\times.ttf\"; }\n    }\n    public static string MonospacePath\n    {\n        get { return @\"C:\\Windows\\Fonts\\courier.ttf\"; }\n    }\n}"
+    "content": "// yikes, we need to:\n/*\n *       o\n *      -|-     < US CROSSING PLATFORM\n *       |\\\n ************************************************\n *       |          ^ PLATFORM           |\n *       |                           T   |\n *       |                      TROLL^   |\n */\n// right now:\n/*\n *   o ./_  |\n *  -|-[]\\  |  (_'_) () (\\) | ) \\|/ (S) < WALL\n *   |\\     |    ^ FRIENDLY MESSAGE FROM YOUR FRIENDS AT MICROSOFT\n *  ***********************************************\n *        | ^PLATFORM                       |\n *      ^ SPRAY CAN (IN HAND)\n */\npublic static class DefaultFonts\n{\n    public static string SansSerifPath\n    {\n        get { return @\"C:\\Windows\\Fonts\\arial.ttf\"; }\n    }\n    public static string SerifPath\n    {\n        get { return @\"C:\\Windows\\Fonts\\times.ttf\"; }\n    }\n    public static string MonospacePath\n    {\n        get { return @\"C:\\Windows\\Fonts\\courier.ttf\"; }\n    }\n}"
   },
   {
     "id": 390,
@@ -3516,7 +3525,7 @@
     "source": "https://stackoverflow.com/a/767642",
     "popularity": 3,
     "tags": [],
-    "content": "//If only humans could leave things be.\n\n//Please do not edit this code, \n//if you do you wont go to jail, you wont go directly to jail, \n//you wont pass go, you wont collect 200 dollars"
+    "content": "//If only humans could leave things be.\n\n//Please do not edit this code,\n//if you do you wont go to jail, you wont go directly to jail,\n//you wont pass go, you wont collect 200 dollars"
   },
   {
     "id": 392,
@@ -3552,7 +3561,7 @@
     "source": "https://stackoverflow.com/a/780312",
     "popularity": 3,
     "tags": [],
-    "content": "@charset \"UTF-8\";\n/* Who knew comments here could COMPLETELY ruin our page in Safari? */\nbody {\n        /* Really important stuff here */\n        /* Of course, comment or not, this will all get ignored by Safari because \n           its the first rule after the comments which break everything.\n           see http://www.w3.org/International/questions/qa-css-charset for the exact details!\n        */\n}"
+    "content": "@charset \"UTF-8\";\n/* Who knew comments here could COMPLETELY ruin our page in Safari? */\nbody {\n        /* Really important stuff here */\n        /* Of course, comment or not, this will all get ignored by Safari because\n           its the first rule after the comments which break everything.\n           see http://www.w3.org/International/questions/qa-css-charset for the exact details!\n        */\n}"
   },
   {
     "id": 396,
@@ -3579,7 +3588,7 @@
     "source": "https://stackoverflow.com/a/769046",
     "popularity": 3,
     "tags": [],
-    "content": "#define FUCK_VS6_CANT_COMPILE_TEMPLATES_WITHOUT_HANDHOLDING ((float*)0)\n\n... \n\nSetPinsFromChannels`<float`>(&pinbuf, streambuf, &inmapper, FUCK_VS6_CANT_COMPILE_TEMPLATES_WITHOUT_HANDHOLDING);"
+    "content": "#define FUCK_VS6_CANT_COMPILE_TEMPLATES_WITHOUT_HANDHOLDING ((float*)0)\n\n...\n\nSetPinsFromChannels`<float`>(&pinbuf, streambuf, &inmapper, FUCK_VS6_CANT_COMPILE_TEMPLATES_WITHOUT_HANDHOLDING);"
   },
   {
     "id": 399,
@@ -3732,7 +3741,7 @@
     "source": "https://stackoverflow.com/a/765149",
     "popularity": 2,
     "tags": [],
-    "content": "/* \n  There is no accounting for pointers \n*/"
+    "content": "/*\n  There is no accounting for pointers\n*/"
   },
   {
     "id": 416,
@@ -3804,7 +3813,7 @@
     "source": "https://stackoverflow.com/a/776518",
     "popularity": 2,
     "tags": [],
-    "content": "// This shouldn't happen, if it does, then the bits that automagically \n// worked when I wrote it have stopped working"
+    "content": "// This shouldn't happen, if it does, then the bits that automagically\n// worked when I wrote it have stopped working"
   },
   {
     "id": 424,
@@ -4038,7 +4047,7 @@
     "source": "https://stackoverflow.com/a/185201",
     "popularity": 1,
     "tags": [],
-    "content": "// Father, forgive me, for I am sinning\n\n// heaven help me\n\n// horse string-length into correctitude \n(from a textbook)\n\n// what, me worry?"
+    "content": "// Father, forgive me, for I am sinning\n\n// heaven help me\n\n// horse string-length into correctitude\n(from a textbook)\n\n// what, me worry?"
   },
   {
     "id": 450,
@@ -4177,7 +4186,7 @@
   },
   {
     "id": 465,
-    "author": "Amr ElgarhyAmr Elgarhy\n        \n            69.2k7070 gold badges193193 silver badges311311 bronze badges",
+    "author": "Amr ElgarhyAmr Elgarhy\n\n            69.2k7070 gold badges193193 silver badges311311 bronze badges",
     "date": "2009-03-29 13:16:23Z",
     "source": "https://stackoverflow.com/a/694615",
     "popularity": 1,
@@ -4290,7 +4299,7 @@
     "source": "https://stackoverflow.com/a/766930",
     "popularity": 1,
     "tags": [],
-    "content": "- (void)smartInsertForString:(NSString *)pasteString replacingRange:(NSRange)charRangeToReplace beforeString:(NSString **)beforeString afterString:(NSString **)afterString;\n- (NSString *)smartInsertBeforeStringForString:(NSString *)pasteString replacingRange:(NSRange)charRangeToReplace;\n- (NSString *)smartInsertAfterStringForString:(NSString *)pasteString replacingRange:(NSRange)charRangeToReplace;\n\n/* Java note: The second and third methods are the primitives and are the \nmethods exposed in Java.  The first method calls the other two.  All \nObjective-C code calls the first method.  In either Objective-C or Java any \noverriding should be done for the second and third methods, not the first \nmethod.  This will all work out correctly with the exception of existing code \nthat overrides the first method.  Existing subclasses that do this will not \nhave their implementations available to Java developers. Isn't Java wonderful? */"
+    "content": "- (void)smartInsertForString:(NSString *)pasteString replacingRange:(NSRange)charRangeToReplace beforeString:(NSString **)beforeString afterString:(NSString **)afterString;\n- (NSString *)smartInsertBeforeStringForString:(NSString *)pasteString replacingRange:(NSRange)charRangeToReplace;\n- (NSString *)smartInsertAfterStringForString:(NSString *)pasteString replacingRange:(NSRange)charRangeToReplace;\n\n/* Java note: The second and third methods are the primitives and are the\nmethods exposed in Java.  The first method calls the other two.  All\nObjective-C code calls the first method.  In either Objective-C or Java any\noverriding should be done for the second and third methods, not the first\nmethod.  This will all work out correctly with the exception of existing code\nthat overrides the first method.  Existing subclasses that do this will not\nhave their implementations available to Java developers. Isn't Java wonderful? */"
   },
   {
     "id": 478,
@@ -4407,7 +4416,7 @@
     "source": "https://stackoverflow.com/a/777244",
     "popularity": 1,
     "tags": [],
-    "content": "// Holy moses! I've never seen anything so ridiculous in all my life. \n\n// Why do we need to query the AlarmIDs table twice.\n\n// Please tell me sir; I would really like to know. \n\n// This like all the other services have been mangled\n\n// to the point where they are nearly impossible to determine what kind of side affects might occur.\n\n// I am making the smallest changes I can to this code. \n\n// The GetAlarmId method gets the alarm id from the AlarmIDs table.\n\n// Novel idea, why didn't we query for the values be get below all in the same place.\n\n// This should be changed, but right now it will have to remain as is due to time constraints.\n\n// This like all other services really don't do anything fantastically hard, but after the original coders got\n\n// done with them; they are difficult to work with and have an acceptable comfort level."
+    "content": "// Holy moses! I've never seen anything so ridiculous in all my life.\n\n// Why do we need to query the AlarmIDs table twice.\n\n// Please tell me sir; I would really like to know.\n\n// This like all the other services have been mangled\n\n// to the point where they are nearly impossible to determine what kind of side affects might occur.\n\n// I am making the smallest changes I can to this code.\n\n// The GetAlarmId method gets the alarm id from the AlarmIDs table.\n\n// Novel idea, why didn't we query for the values be get below all in the same place.\n\n// This should be changed, but right now it will have to remain as is due to time constraints.\n\n// This like all other services really don't do anything fantastically hard, but after the original coders got\n\n// done with them; they are difficult to work with and have an acceptable comfort level."
   },
   {
     "id": 491,
@@ -4425,7 +4434,7 @@
     "source": "https://stackoverflow.com/a/778615",
     "popularity": 1,
     "tags": [],
-    "content": "//Attempt to explain this confusing mess of code:\n//First time you save an actual absence this is what happens:\n//0. The first save saves to the <TableName> table (among other things). (Fig. A)\n//1. The <CalculationMethod> method is called next which inserts to the <OtherTableName> table. \n//(This is the table that keeps track of credits to the case.) (Fig. B)\n//2. So then you have to call <UpdateCalculations> to move the <TableName> records to the <ThirdTableName> table. (Fig. C)\n//3. Then you go back and run calculations since you have the debits table (<ThirdTableName>) populated. (Fig D.)\n//4. Then a final save to save the calculations back to the case. (Fig. E)\n//Yeah, I know what you're thinking:  this sucks. 10/01/07 XXX"
+    "content": "//Attempt to explain this confusing mess of code:\n//First time you save an actual absence this is what happens:\n//0. The first save saves to the <TableName> table (among other things). (Fig. A)\n//1. The <CalculationMethod> method is called next which inserts to the <OtherTableName> table.\n//(This is the table that keeps track of credits to the case.) (Fig. B)\n//2. So then you have to call <UpdateCalculations> to move the <TableName> records to the <ThirdTableName> table. (Fig. C)\n//3. Then you go back and run calculations since you have the debits table (<ThirdTableName>) populated. (Fig D.)\n//4. Then a final save to save the calculations back to the case. (Fig. E)\n//Yeah, I know what you're thinking:  this sucks. 10/01/07 XXX"
   },
   {
     "id": 493,
