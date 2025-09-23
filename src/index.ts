@@ -1,5 +1,6 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import type { Context } from 'hono'
 import pkg from '../package.json' assert { type: 'json' }
 import * as sharp from 'sharp'
 import { Buffer } from 'node:buffer'
@@ -65,56 +66,15 @@ app.get('/api/comment/:id', (c) => {
   return c.json(comment)
 })
 
-// Image generation endpoint
 app.get('/comment.png', async (c) => {
-  const { id, ...queryParams } = c.req.query()
-
-  let comment: Comment | undefined
-
-  if (id) { // If ID is provided, generate image directly
-    comment = commentsPreFiltered.find(c => c.id === parseInt(id, 10))
-  } else { // If no ID, pick random and redirect
-    const { tags, author } = queryParams
-    const filtered = filterComments(commentsPreFiltered, tags, author)
-    const randomComment = filtered.length > 0 ? getRandomComment(filtered) : undefined
-
-    if (!randomComment) {
-      return c.json({ error: 'No comments found with specified filters' }, 404)
-    }
-
-    // Construct redirect URL
-    const newUrl = `/comment.png?id=${randomComment.id}`
-    const searchParams = new URLSearchParams(queryParams as Record<string, string>)
-    const queryString = searchParams.toString()
-    const redirectUrl = queryString ? `${newUrl}&${queryString}` : newUrl
-
-    return c.redirect(redirectUrl)
-  }
-
-  // If comment was found (either by ID or after redirect), proceed with generation
-  if (!comment) {
-    return c.text('Comment not found', 404)
-  }
-
-  const { theme = 'light', width = SVG_DEFAULT_WIDTH } = queryParams
-  const svg = generateCommentSvg(comment, theme, width)
-
-  try {
-    const buffer = await sharp.default(Buffer.from(svg))
-      .png()
-      .toBuffer()
-
-    c.header('Content-Type', 'image/png')
-    c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`) // Add caching
-    return c.body(buffer.buffer as ArrayBuffer)
-  } catch (error) {
-    console.error('Image generation error:', error)
-    return c.text('Error generating image', 500)
-  }
+  return handleCommentImageRequest(c, 'png')
 })
 
-// SVG generation endpoint
 app.get('/comment.svg', async (c) => {
+  return handleCommentImageRequest(c, 'svg')
+})
+
+async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
   const { id, ...queryParams } = c.req.query()
 
   let comment: Comment | undefined
@@ -130,7 +90,7 @@ app.get('/comment.svg', async (c) => {
       return c.json({ error: 'No comments found with specified filters' }, 404)
     }
 
-    const newUrl = `/comment.svg?id=${randomComment.id}`
+    const newUrl = `/comment.${imageType}?id=${randomComment.id}`
     const searchParams = new URLSearchParams(queryParams as Record<string, string>)
     const queryString = searchParams.toString()
     const redirectUrl = queryString ? `${newUrl}&${queryString}` : newUrl
@@ -145,11 +105,25 @@ app.get('/comment.svg', async (c) => {
   const { theme = 'light', width = SVG_DEFAULT_WIDTH } = queryParams
   const svg = generateCommentSvg(comment, theme, width)
 
-  c.header('Content-Type', 'image/svg+xml')
-  c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`) // Add caching
-  return c.body(svg)
-})
+  c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`)
 
+  if (imageType === 'png') {
+    try {
+      const buffer = await sharp.default(Buffer.from(svg))
+        .png()
+        .toBuffer()
+
+      c.header('Content-Type', 'image/png')
+      return c.body(buffer.buffer as ArrayBuffer)
+    } catch (error) {
+      console.error('Image generation error:', error)
+      return c.text('Error generating image', 500)
+    }
+  } else { // imageType === 'svg'
+    c.header('Content-Type', 'image/svg+xml')
+    return c.body(svg)
+  }
+}
 
 if (isDevEnv()) {
   app.get('/all', (c) => {
