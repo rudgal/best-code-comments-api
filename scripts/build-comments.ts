@@ -1,8 +1,9 @@
 import { parse } from 'csv-parse/sync'
-import { readFileSync, writeFileSync, mkdirSync } from 'fs'
-import { join, dirname } from 'path'
+import { mkdirSync, readFileSync, writeFileSync } from 'fs'
+import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import type { Comment } from '../src/types'
+import { checkNumberOfLines, checkPopularity } from '../src/utils'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const dataCsvPath = join(__dirname, '../src/data/comments.csv')
@@ -10,7 +11,7 @@ const dataJsonPath = join(__dirname, '../src/data')
 const distPath = join(__dirname, '../dist')
 
 // Ensure dist directory exists
-mkdirSync(distPath, { recursive: true })
+mkdirSync(distPath, {recursive: true})
 
 try {
   const csvContent = readFileSync(dataCsvPath, 'utf8')
@@ -45,6 +46,8 @@ try {
   // Sort by ID for consistency
   comments.sort((a, b) => a.id - b.id)
 
+  reportExcludedComments(comments);
+
   // Check for duplicate IDs
   const ids = new Set<number>()
   comments.forEach(comment => {
@@ -60,9 +63,22 @@ try {
     JSON.stringify(comments, null, 2)
   )
 
-  console.log(`✅ Successfully built ${comments.length} comments`)
-  console.log(`📁 Output: ${dataJsonPath}/comments.json`)
+  console.info(`✅ Successfully built ${comments.length} comments`)
+  console.info(`📁 Output: ${dataJsonPath}/comments.json`)
 } catch (error) {
   console.error('❌ Build failed:', error)
   process.exit(1)
+}
+
+function reportExcludedComments(comments: Comment[]) {
+  // Report filtered comments
+  const excludeddueToNumberOfLines = comments.filter(c => !checkNumberOfLines(c)).map(c => c.id)
+  if (excludeddueToNumberOfLines.length > 0) {
+    console.log(`Excluded due to number of lines (${excludeddueToNumberOfLines.length}):`, excludeddueToNumberOfLines)
+  }
+
+  const excludedDueToPopularity = comments.filter(c => !checkPopularity(c)).map(c => c.id)
+  if (excludedDueToPopularity.length > 0) {
+    console.log(`Excluded due topopularity (${excludedDueToPopularity.length}):`, excludedDueToPopularity)
+  }
 }

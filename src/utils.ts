@@ -38,16 +38,18 @@ export function filterComments(
   return filtered
 }
 
-export function filterByNumberOfLines() {
-  return (comment: Comment) => comment.content.split('\n').length <= MAX_LINES;
+export function checkNumberOfLines(comment: Comment){
+  return comment.content.split('\n').length <= MAX_LINES
 }
 
-export function filterByPopularity() {
-  return (comment: Comment) => comment.popularity >= MIN_POPULARITY;
+export function checkPopularity(comment: Comment){
+  return comment.popularity >= MIN_POPULARITY
 }
 
 export function filterStatic(comments: Comment[]): Comment[] {
-  return comments.filter(filterByNumberOfLines()).filter(filterByPopularity())
+  return comments
+    .filter(comment => checkNumberOfLines(comment))
+    .filter(comment => checkPopularity(comment))
 }
 
 export function isCommentExcluded(comment: Comment): boolean {
