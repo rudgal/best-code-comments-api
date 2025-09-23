@@ -3,7 +3,8 @@ import { escape } from 'lodash'
 
 export const SVG_DEFAULT_WIDTH = '820';
 export const MAX_CHARS_PER_LINE = 80;
-
+export const MAX_LINES = 20;
+export const MIN_POPULARITY = 2;
 
 export function getRandomComment(comments: Comment[]): Comment | undefined {
   if (comments.length === 0) {
@@ -35,6 +36,24 @@ export function filterComments(
   }
 
   return filtered
+}
+
+export function filterByNumberOfLines() {
+  return (comment: Comment) => comment.content.split('\n').length <= MAX_LINES;
+}
+
+export function filterByPopularity() {
+  return (comment: Comment) => comment.popularity >= MIN_POPULARITY;
+}
+
+export function filterStatic(comments: Comment[]): Comment[] {
+  return comments.filter(filterByNumberOfLines()).filter(filterByPopularity())
+}
+
+export function isCommentExcluded(comment: Comment): boolean {
+  const lines = comment.content.split('\n').length;
+  const popularity = comment.popularity;
+  return lines > MAX_LINES || popularity < MIN_POPULARITY;
 }
 
 function wrapText(text: string, charLimit: number): string[] {
