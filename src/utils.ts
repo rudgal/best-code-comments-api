@@ -91,6 +91,7 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
   const bgColor = theme === 'dark' ? '#0d1117' : '#ffffff'
   const textColor = theme === 'dark' ? '#c9d1d9' : '#24292f'
   const authorColor = theme === 'dark' ? '#8b949e' : '#57606a'
+  const hostedByColor = theme === 'dark' ? '#8b949e' : '#57606a'
   const borderColor = theme === 'dark' ? '#30363d' : '#d0d7de'
   const accentColor = theme === 'dark' ? '#58a6ff' : '#0969da'
 
@@ -126,6 +127,16 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
               font-family="system-ui, sans-serif" font-size="12">
           ${comment.tags.slice(0, 3).join(', ')}
         </text>
+      ` : ''}
+
+      ${process.env.HOSTED_BY ? `
+        <a href="https://${process.env.HOSTED_BY}">
+          <text x="${parseInt(width) - padding}" y="${height - padding}" 
+                text-anchor="end" fill="${hostedByColor}" 
+                font-family="system-ui, sans-serif" font-size="11">
+            ${process.env.HOSTED_BY}
+          </text>
+        </a>
       ` : ''}
     </svg>
   `
