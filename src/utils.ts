@@ -1,6 +1,10 @@
 import type { Comment } from './types'
 import { escape } from 'lodash'
 
+export const SVG_DEFAULT_WIDTH = '820';
+export const MAX_CHARS_PER_LINE = 80;
+
+
 export function getRandomComment(comments: Comment[]): Comment | undefined {
   if (comments.length === 0) {
     return undefined
@@ -33,7 +37,31 @@ export function filterComments(
   return filtered
 }
 
-export const SVG_DEFAULT_WIDTH = '820';
+function wrapText(text: string, charLimit: number): string[] {
+  const words = text.split(' ');
+  const lines: string[] = [];
+  let currentLine = '';
+
+  for (const word of words) {
+    if ((currentLine + word).length <= charLimit) {
+      currentLine += (currentLine === '' ? '' : ' ') + word;
+    } else {
+      if (currentLine !== '') {
+        lines.push(currentLine);
+      }
+      currentLine = word;
+      while (currentLine.length > charLimit) {
+        lines.push(currentLine.substring(0, charLimit));
+        currentLine = currentLine.substring(charLimit);
+      }
+    }
+  }
+  if (currentLine !== '') {
+    lines.push(currentLine);
+  }
+  return lines;
+}
+
 export function generateCommentSvg(comment: Comment, theme: string = 'light', width = SVG_DEFAULT_WIDTH): string {
   const bgColor = theme === 'dark' ? '#0d1117' : '#ffffff'
   const textColor = theme === 'dark' ? '#c9d1d9' : '#24292f'
@@ -41,10 +69,15 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
   const borderColor = theme === 'dark' ? '#30363d' : '#d0d7de'
   const accentColor = theme === 'dark' ? '#58a6ff' : '#0969da'
 
-  const lines = comment.content.split('\n')
   const lineHeight = 24
   const padding = 32
-  const height = Math.max(200, (lines.length * lineHeight) + (padding * 3) + 40)
+
+  const wrappedLines: string[] = [];
+  comment.content.split('\n').forEach(line => {
+    wrapText(line, MAX_CHARS_PER_LINE).forEach(wrappedLine => wrappedLines.push(wrappedLine));
+  });
+
+  const height = Math.max(200, (wrappedLines.length * lineHeight) + (padding * 3) + 40)
 
   return `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
@@ -53,7 +86,7 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
             fill="none" stroke="${borderColor}" stroke-width="2" rx="6"/>
       <rect x="0" y="0" width="4" height="${height}" fill="${accentColor}"/>
       
-      ${lines.map((line, i) =>
+      ${wrappedLines.map((line, i) =>
     `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" fill="${textColor}" font-family="ui-monospace, monospace" font-size="16" xml:space="preserve">${escape(line)}</text>`
   ).join('')}
       
