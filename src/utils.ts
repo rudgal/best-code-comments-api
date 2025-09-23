@@ -33,7 +33,8 @@ export function filterComments(
   return filtered
 }
 
-export function generateCommentSvg(comment: Comment, theme: string = 'light', width: string = '800'): string {
+export const SVG_DEFAULT_WIDTH = '820';
+export function generateCommentSvg(comment: Comment, theme: string = 'light', width = SVG_DEFAULT_WIDTH): string {
   const bgColor = theme === 'dark' ? '#0d1117' : '#ffffff'
   const textColor = theme === 'dark' ? '#c9d1d9' : '#24292f'
   const authorColor = theme === 'dark' ? '#8b949e' : '#57606a'

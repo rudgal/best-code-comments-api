@@ -4,7 +4,7 @@ import pkg from '../package.json' assert { type: 'json' }
 import * as sharp from 'sharp'
 import { Buffer } from 'node:buffer'
 import type { Comment } from './types'
-import { filterComments, getRandomComment, generateCommentSvg } from './utils'
+import { filterComments, getRandomComment, generateCommentSvg, SVG_DEFAULT_WIDTH } from './utils'
 import commentsData from './data/comments.json' assert { type: 'json' }
 
 // --- Data Loading ---
@@ -61,7 +61,7 @@ app.get('/api/comment/:id', (c) => {
 
 // Image generation endpoint
 app.get('/comment.png', async (c) => {
-  const { theme = 'light', width = '800', id, tags, author } = c.req.query()
+  const { theme = 'light', width = SVG_DEFAULT_WIDTH, id, tags, author } = c.req.query()
 
   let comment: Comment | undefined
 
@@ -94,7 +94,7 @@ app.get('/comment.png', async (c) => {
 
 // SVG generation endpoint
 app.get('/comment.svg', async (c) => {
-  const { theme = 'light', width = '800', id, tags, author } = c.req.query()
+  const { theme = 'light', width = SVG_DEFAULT_WIDTH, id, tags, author } = c.req.query()
 
   let comment: Comment | undefined
 
