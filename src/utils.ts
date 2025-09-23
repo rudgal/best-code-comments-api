@@ -6,6 +6,10 @@ export const MAX_CHARS_PER_LINE = 80;
 export const MAX_LINES = 20;
 export const MIN_POPULARITY = 2;
 
+export function isDevEnv() {
+  return process.env.NODE_ENV === 'development'
+}
+
 export function getRandomComment(comments: Comment[]): Comment | undefined {
   if (comments.length === 0) {
     return undefined

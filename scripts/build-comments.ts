@@ -3,7 +3,7 @@ import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
 import type { Comment } from '../src/types'
-import { checkNumberOfLines, checkPopularity } from '../src/utils'
+import { checkNumberOfLines, checkPopularity, isDevEnv } from '../src/utils'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const dataCsvPath = join(__dirname, '../src/data/comments.csv')
@@ -71,7 +71,8 @@ try {
 }
 
 function reportExcludedComments(comments: Comment[]) {
-  // Report filtered comments
+  if(!isDevEnv()) return;
+
   const excludeddueToNumberOfLines = comments.filter(c => !checkNumberOfLines(c)).map(c => c.id)
   if (excludeddueToNumberOfLines.length > 0) {
     console.log(`Excluded due to number of lines (${excludeddueToNumberOfLines.length}):`, excludeddueToNumberOfLines)

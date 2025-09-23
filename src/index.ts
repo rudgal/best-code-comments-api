@@ -4,7 +4,10 @@ import pkg from '../package.json' assert { type: 'json' }
 import * as sharp from 'sharp'
 import { Buffer } from 'node:buffer'
 import type { Comment } from './types'
-import { filterComments, filterStatic, getRandomComment, generateCommentSvg, SVG_DEFAULT_WIDTH, isCommentExcluded } from './utils'
+import {
+  filterComments, filterStatic, getRandomComment, generateCommentSvg, SVG_DEFAULT_WIDTH, isCommentExcluded,
+  isDevEnv
+} from './utils'
 import commentsData from './data/comments.json' assert { type: 'json' }
 
 // --- Data Loading ---
@@ -120,7 +123,7 @@ app.get('/comment.svg', async (c) => {
 })
 
 
-if (process.env.NODE_ENV === 'development') {
+if (isDevEnv()) {
   app.get('/all', (c) => {
     const html = `
       <!DOCTYPE html>
