@@ -62,16 +62,16 @@ app.get('/api/comment/:id', (c) => {
 // Image generation endpoint
 app.get('/comment.png', async (c) => {
   const { theme = 'light', width = '800', id, tags, author } = c.req.query()
-  
+
   let comment: Comment | undefined
-  
+
   if (id) {
     comment = comments.find(c => c.id === parseInt(id, 10))
   } else {
     const filtered = filterComments(comments, tags, author)
     comment = filtered.length > 0 ? getRandomComment(filtered) : undefined
   }
-  
+
   if (!comment) {
     return c.text('Comment not found', 404)
   }
@@ -95,16 +95,16 @@ app.get('/comment.png', async (c) => {
 // SVG generation endpoint
 app.get('/comment.svg', async (c) => {
   const { theme = 'light', width = '800', id, tags, author } = c.req.query()
-  
+
   let comment: Comment | undefined
-  
+
   if (id) {
     comment = comments.find(c => c.id === parseInt(id, 10))
   } else {
     const filtered = filterComments(comments, tags, author)
     comment = filtered.length > 0 ? getRandomComment(filtered) : undefined
   }
-  
+
   if (!comment) {
     return c.text('Comment not found', 404)
   }
@@ -115,6 +115,41 @@ app.get('/comment.svg', async (c) => {
   c.header('Cache-Control', 'no-cache, no-store, must-revalidate')
   return c.body(svg)
 })
+
+
+if (process.env.NODE_ENV === 'development') {
+  app.get('/all', (c) => {
+    const html = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <title>All Comments</title>
+        <style>
+          body { font-family: sans-serif; margin: 2em; }
+          ul { list-style-type: none; padding: 0; }
+          li { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
+          pre { background-color: #f4f4f4; padding: 10px; border-radius: 3px; white-space: pre-wrap; word-wrap: break-word; }
+          code { font-family: monospace; }
+        </style>
+      </head>
+      <body>
+        <h1>All Comments (${comments.length})</h1>
+        <ul>
+          ${comments.map(comment => `
+            <li>
+              <p><strong>ID:</strong> ${comment.id}</p>
+            ${generateCommentSvg(comment)}
+            </li>
+          `).join('')}
+        </ul>
+      </body>
+      </html>
+    `;
+    c.header('Content-Type', 'text/html');
+    return c.body(html);
+  })
+}
 
 const port = process.env.PORT || 3000
 console.log(`🚀 BestCodeComments API running on port ${port}`)
