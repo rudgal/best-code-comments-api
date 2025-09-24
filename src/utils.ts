@@ -2,7 +2,6 @@ import type { Comment } from './types'
 import { escape } from 'lodash'
 
 export const SVG_DEFAULT_WIDTH = '820';
-export const MAX_CHARS_PER_LINE = 80;
 export const MAX_LINES = 25;
 export const MIN_POPULARITY = 2;
 export const IMAGE_CACHE_MAX_AGE = 2678400;
@@ -61,9 +60,7 @@ export function isCommentExcluded(comment: Comment): boolean {
   const lines = comment.content.split('\n').length;
   const popularity = comment.popularity;
   return lines > MAX_LINES || popularity < MIN_POPULARITY;
-}
-
-function wrapText(text: string, charLimit: number): string[] {
+}function wrapText(text: string, charLimit: number): string[] {
   const words = text.split(' ');
   const lines: string[] = [];
   let currentLine = '';
@@ -88,6 +85,8 @@ function wrapText(text: string, charLimit: number): string[] {
   return lines;
 }
 
+
+
 export function generateCommentSvg(comment: Comment, theme: string = 'light', width = SVG_DEFAULT_WIDTH): string {
   const bgColor = theme === 'dark' ? '#0d1117' : '#ffffff'
   const textColor = theme === 'dark' ? '#c9d1d9' : '#24292f'
@@ -98,10 +97,14 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
 
   const lineHeight = 24
   const padding = 32
+  const estimatedCharWidth = 9.4;
+
+  const availableWidthForText = parseInt(width) - (2 * padding);
+  const dynamicMaxCharsPerLine = Math.floor(availableWidthForText / estimatedCharWidth);
 
   const wrappedLines: string[] = [];
   comment.content.split('\n').forEach(line => {
-    wrapText(line, MAX_CHARS_PER_LINE).forEach(wrappedLine => wrappedLines.push(wrappedLine));
+    wrapText(line, dynamicMaxCharsPerLine).forEach(wrappedLine => wrappedLines.push(wrappedLine));
   });
 
   const height = Math.max(140, (wrappedLines.length * lineHeight) + (padding * 3.5))
