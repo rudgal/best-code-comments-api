@@ -33,7 +33,7 @@ const app = new Hono()
 app.use('/*', cors())
 
 // Health check
-app.get('/', (c) => {
+app.get('/health', (c) => {
   return c.json({
     name: 'BestCodeComments API',
     version: pkg.version,
@@ -44,6 +44,9 @@ app.get('/', (c) => {
     totalComments: commentsAll.length
   })
 })
+
+const repoUrl = process.env.VERCEL_GIT_REPOSITORY_URL || 'https://github.com/rudgal/best-code-comments-api';
+app.get('/', (c) => c.redirect(repoUrl))
 
 // REST API: Get random comment
 app.get('/api/random', (c) => {
