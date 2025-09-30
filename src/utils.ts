@@ -111,20 +111,40 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
 
   const height = Math.max(140, (wrappedLines.length * lineHeight) + (padding * 3.5))
   const hostedByUrl = process.env.HOSTED_BY_URL || (process.env.HOSTED_BY ? `https://${process.env.HOSTED_BY}` : '');
+  const googleFontsUrl = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Roboto:wght@400;500&display=swap';
 
   return `
     <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style type="text/css"><![CDATA[
+          @import url('${googleFontsUrl}');
+          .comment-line {
+            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+            font-size: 16px;
+            fill: ${textColor};
+          }
+          .author-line {
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 14px;
+            fill: ${authorColor};
+          }
+          .hosted-by-line {
+            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 12px;
+            fill: ${hostedByColor};
+          }
+        ]]></style>
+      </defs>
       <rect width="100%" height="100%" fill="${bgColor}"/>
       <rect x="1" y="1" width="${parseInt(width) - 2}" height="${height - 2}" 
             fill="none" stroke="${borderColor}" stroke-width="2" rx="6"/>
       <rect x="0" y="0" width="4" height="${height}" fill="${accentColor}"/>
       
       ${wrappedLines.map((line, i) =>
-    `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" fill="${textColor}" font-family="ui-monospace, monospace" font-size="16" xml:space="preserve">${escape(line)}</text>`
+    `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" class="comment-line" xml:space="preserve">${escape(line)}</text>`
   ).join('')}
       <a href="${comment.source}" target="_blank">
-        <text x="${padding}" y="${height - padding}" fill="${authorColor}" 
-              font-family="system-ui, sans-serif" font-size="14">
+        <text x="${padding}" y="${height - padding}" class="author-line">
           — ${escape(comment.author)}
         </text>
       </a>
@@ -132,8 +152,7 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
       ${process.env.HOSTED_BY ? `
         <a href="${hostedByUrl}" target="_blank">
          <text x="${parseInt(width) - padding}" y="${height - padding}" 
-              text-anchor="end" fill="${hostedByColor}" 
-              font-family="system-ui, sans-serif" font-size="12">
+              text-anchor="end" class="hosted-by-line">
           ${process.env.HOSTED_BY}
         </text>
         </a>
@@ -146,9 +165,8 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
 // see https://github.com/lovell/sharp/issues/2499
 export function setupFontsForVercel() {
   const fontConfigPath = path.join(process.cwd(), 'fonts', 'fonts.conf');
-  const fontPath1 = path.join(process.cwd(), 'fonts', 'Arial.ttf');
-  const fontPath2 = path.join(process.cwd(), 'fonts', 'Inconsolata-VariableFont_wdth,wght.ttf');
-  const fontPath3 = path.join(process.cwd(), 'fonts', 'Roboto-VariableFont_wdth,wght.ttf');
+  const fontPath1 = path.join(process.cwd(), 'fonts', 'JetBrainsMono-VariableFont_wght.ttf');
+  const fontPath2 = path.join(process.cwd(), 'fonts', 'Roboto-VariableFont_wdth,wght.ttf');
   if (process.env.NODE_ENV === 'production') {
     process.env.FONTCONFIG_PATH = '/var/task/fonts';
     process.env.LD_LIBRARY_PATH = '/var/task';
