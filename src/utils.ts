@@ -64,27 +64,30 @@ export function isCommentExcluded(comment: Comment): boolean {
 }
 
 function wrapText(text: string, charLimit: number): string[] {
-  const words = text.split(' ');
-  const lines: string[] = [];
-  let currentLine = '';
+  if (text.length === 0) {
+    return [''];
+  }
+  if (text.length <= charLimit) {
+    return [text];
+  }
 
-  for (const word of words) {
-    if ((currentLine + word).length <= charLimit) {
-      currentLine += (currentLine === '' ? '' : ' ') + word;
-    } else {
-      if (currentLine !== '') {
-        lines.push(currentLine);
-      }
-      currentLine = word;
-      while (currentLine.length > charLimit) {
-        lines.push(currentLine.substring(0, charLimit));
-        currentLine = currentLine.substring(charLimit);
-      }
+  const lines: string[] = [];
+  let remaining = text;
+
+  while (remaining.length > charLimit) {
+    let breakIndex = remaining.lastIndexOf(' ', charLimit);
+    if (breakIndex <= 0) {
+      breakIndex = charLimit;
+    }
+
+    lines.push(remaining.slice(0, breakIndex));
+    remaining = remaining.slice(breakIndex);
+    if (remaining.startsWith(' ')) {
+      remaining = remaining.slice(1);
     }
   }
-  if (currentLine !== '') {
-    lines.push(currentLine);
-  }
+
+  lines.push(remaining);
   return lines;
 }
 
@@ -102,7 +105,7 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
   const estimatedCharWidth = 9.4;
 
   const availableWidthForText = parseInt(width) - (2 * padding);
-  const dynamicMaxCharsPerLine = Math.floor(availableWidthForText / estimatedCharWidth);
+  const dynamicMaxCharsPerLine = Math.max(1, Math.floor(availableWidthForText / estimatedCharWidth));
 
   const wrappedLines: string[] = [];
   comment.content.split('\n').forEach(line => {
