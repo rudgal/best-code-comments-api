@@ -4,7 +4,6 @@ import type { Comment } from './types.js'
 import {
   filterComments,
   filterStatic,
-  generateCommentSvg,
   getRandomComment,
   IMAGE_CACHE_MAX_AGE,
   isCommentExcluded,
@@ -12,6 +11,8 @@ import {
   setupFontsForVercel,
   SVG_DEFAULT_WIDTH
 } from './utils.js'
+import { renderToString } from 'hono/jsx/dom/server'
+import { CommentSvg } from './components/CommentSvg.js'
 import * as sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
@@ -110,7 +111,11 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
   }
 
   const {theme = 'light', width = SVG_DEFAULT_WIDTH} = queryParams
-  const svg = generateCommentSvg(comment, theme, width)
+  const svg = renderToString(CommentSvg({
+    comment,
+    theme,
+    width
+  }))
 
   c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`)
 
@@ -158,7 +163,7 @@ if (isDevEnv()) {
       return `
             <li style="${styleListItem}">
               <p style="${styleParagraph}"><strong>ID:</strong> ${comment.id}</p>
-            ${generateCommentSvg(comment)}
+            ${renderToString(CommentSvg({ comment }))}
             </li>
           `;
     }).join('')}

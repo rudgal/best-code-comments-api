@@ -1,5 +1,4 @@
 import type { Comment } from './types.js'
-import { escape } from 'lodash-es'
 import path from 'path';
 
 export const SVG_DEFAULT_WIDTH = '820';
@@ -61,107 +60,6 @@ export function isCommentExcluded(comment: Comment): boolean {
   const lines = comment.content.split('\n').length;
   const popularity = comment.popularity;
   return lines > MAX_LINES || popularity < MIN_POPULARITY;
-}
-
-function wrapText(text: string, charLimit: number): string[] {
-  if (text.length === 0) {
-    return [''];
-  }
-  if (text.length <= charLimit) {
-    return [text];
-  }
-
-  const lines: string[] = [];
-  let remaining = text;
-
-  while (remaining.length > charLimit) {
-    let breakIndex = remaining.lastIndexOf(' ', charLimit);
-    if (breakIndex <= 0) {
-      breakIndex = charLimit;
-    }
-
-    lines.push(remaining.slice(0, breakIndex));
-    remaining = remaining.slice(breakIndex);
-    if (remaining.startsWith(' ')) {
-      remaining = remaining.slice(1);
-    }
-  }
-
-  lines.push(remaining);
-  return lines;
-}
-
-
-export function generateCommentSvg(comment: Comment, theme: string = 'light', width = SVG_DEFAULT_WIDTH): string {
-  const bgColor = theme === 'dark' ? '#0d1117' : '#ffffff'
-  const textColor = theme === 'dark' ? '#c9d1d9' : '#24292f'
-  const authorColor = theme === 'dark' ? '#8b949e' : '#57606a'
-  const hostedByColor = theme === 'dark' ? '#7d8590' : '#6e7781'
-  const borderColor = theme === 'dark' ? '#30363d' : '#d0d7de'
-  const accentColor = theme === 'dark' ? '#58a6ff' : '#0969da'
-
-  const lineHeight = 24
-  const padding = 32
-  const estimatedCharWidth = 9.4;
-
-  const availableWidthForText = parseInt(width) - (2 * padding);
-  const dynamicMaxCharsPerLine = Math.max(1, Math.floor(availableWidthForText / estimatedCharWidth));
-
-  const wrappedLines: string[] = [];
-  comment.content.split('\n').forEach(line => {
-    wrapText(line, dynamicMaxCharsPerLine).forEach(wrappedLine => wrappedLines.push(wrappedLine));
-  });
-
-  const height = Math.max(140, (wrappedLines.length * lineHeight) + (padding * 3.5))
-  const hostedByUrl = process.env.HOSTED_BY_URL || (process.env.HOSTED_BY ? `https://${process.env.HOSTED_BY}` : '');
-  const googleFontsUrl = 'https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Roboto:wght@400;500&display=swap';
-
-  return `
-    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <style type="text/css"><![CDATA[
-          @import url('${googleFontsUrl}');
-          .comment-line {
-            font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
-            font-size: 16px;
-            fill: ${textColor};
-          }
-          .author-line {
-            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-size: 14px;
-            fill: ${authorColor};
-          }
-          .hosted-by-line {
-            font-family: 'Roboto', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-size: 12px;
-            fill: ${hostedByColor};
-          }
-        ]]></style>
-      </defs>
-      <rect width="100%" height="100%" fill="${bgColor}"/>
-      <rect x="1" y="1" width="${parseInt(width) - 2}" height="${height - 2}" 
-            fill="none" stroke="${borderColor}" stroke-width="2" rx="6"/>
-      <rect x="0" y="0" width="4" height="${height}" fill="${accentColor}"/>
-      
-      ${wrappedLines.map((line, i) =>
-    `<text x="${padding}" y="${padding + (i + 1) * lineHeight}" class="comment-line" xml:space="preserve">${escape(line)}</text>`
-  ).join('')}
-      <a href="${comment.source}" target="_blank">
-        <text x="${padding}" y="${height - padding}" class="author-line">
-          — ${escape(comment.author)}
-        </text>
-      </a>
-      
-      ${process.env.HOSTED_BY ? `
-        <a href="${hostedByUrl}" target="_blank">
-         <text x="${parseInt(width) - padding}" y="${height - padding}" 
-              text-anchor="end" class="hosted-by-line">
-          ${process.env.HOSTED_BY}
-        </text>
-        </a>
-      ` : ''}
-    </svg>
-  `
 }
 
 // Configure Sharp to use custom fonts so that rendering also works on vercel
