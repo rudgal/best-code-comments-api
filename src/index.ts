@@ -1,21 +1,24 @@
-import { Hono } from 'hono'
+import { Context, Hono } from 'hono'
 import { cors } from 'hono/cors'
-import type { Context } from 'hono'
-import pkg from '../package.json' assert { type: 'json' }
-import * as sharp from 'sharp'
-import { Buffer } from 'node:buffer'
-import type { Comment } from './types'
+import type { Comment } from './types.js'
 import {
-  filterComments, filterStatic, getRandomComment, generateCommentSvg, SVG_DEFAULT_WIDTH, isCommentExcluded,
-  isDevEnv, IMAGE_CACHE_MAX_AGE
-} from './utils'
-import commentsData from './data/comments.json' assert { type: 'json' }
+  filterComments,
+  filterStatic,
+  generateCommentSvg,
+  getRandomComment, IMAGE_CACHE_MAX_AGE,
+  isCommentExcluded,
+  isDevEnv,
+  SVG_DEFAULT_WIDTH
+} from './utils.js'
+import * as sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
 
 // --- Data Loading ---
-
-const commentsAll: Comment[] = commentsData as Comment[]
+const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'));
+const commentsData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'comments.json'), 'utf-8'));
+const commentsAll: Comment[] = commentsData as Comment[];
 const commentsPreFiltered: Comment[] = filterStatic(commentsAll);
-
 
 // --- API Server ---
 
@@ -163,8 +166,5 @@ if (isDevEnv()) {
     return c.body(html);
   })
 }
-
-const port = process.env.PORT || 3000
-console.log(`🚀 BestCodeComments API running on port ${port}`)
 
 export default app

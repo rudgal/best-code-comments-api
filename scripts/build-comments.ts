@@ -2,8 +2,8 @@ import { parse } from 'csv-parse/sync'
 import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import type { Comment } from '../src/types'
-import { checkNumberOfLines, checkPopularity, isDevEnv } from '../src/utils'
+import type { Comment } from '../src/types.js'
+import { checkNumberOfLines, checkPopularity, isDevEnv } from '../src/utils.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const dataCsvPath = join(__dirname, '../src/data/comments.csv')

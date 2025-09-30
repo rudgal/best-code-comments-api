@@ -1,28 +1,29 @@
 {
-  "name": "bestCodeComments",
+  "name": "best-code-comments-api",
   "version": "1.0.0",
   "type": "module",
-  "private": true,
   "scripts": {
     "dev": "bun run build && bun --hot src/index.ts",
+    "dev-vercel": "vc dev",
     "build": "bun run scripts/build-comments.ts",
     "scrape-so-folder": "bun run scripts/scrape-stackoverflow.ts --folder html/stackoverflow",
     "scrape-so-url": "bun run scripts/scrape-stackoverflow.ts --url  https://stackoverflow.com/questions/184618"
   },
   "dependencies": {
-    "hono": "^4.0.0",
-    "lodash": "^4.17.21",
+    "hono": "^4.8.9",
+    "lodash-es": "^4.17.21",
     "playwright": "^1.55.0",
     "sharp": "^0.34.4"
   },
   "devDependencies": {
     "@types/bun": "latest",
-    "@types/lodash": "^4.17.20",
+    "@types/lodash-es": "^4.17.12",
+    "@types/node": "^20.11.17",
     "@types/sharp": "^0.32.0",
     "cheerio": "^1.1.2",
     "csv-parse": "^5.5.0",
     "csv-stringify": "^6.4.0",
     "node-fetch": "^3.3.2",
-    "typescript": "^5.3.0"
+    "typescript": "^5.8.3"
   }
 }

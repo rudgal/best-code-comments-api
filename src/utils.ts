@@ -1,5 +1,5 @@
-import type { Comment } from './types'
-import { escape } from 'lodash'
+import type { Comment } from './types.js'
+import { escape } from 'lodash-es'
 
 export const SVG_DEFAULT_WIDTH = '820';
 export const MAX_LINES = 25;
