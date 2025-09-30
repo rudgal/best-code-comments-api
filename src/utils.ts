@@ -1,5 +1,6 @@
 import type { Comment } from './types.js'
 import { escape } from 'lodash-es'
+import path from 'path';
 
 export const SVG_DEFAULT_WIDTH = '820';
 export const MAX_LINES = 25;
@@ -42,11 +43,11 @@ export function filterComments(
   return filtered
 }
 
-export function checkNumberOfLines(comment: Comment){
+export function checkNumberOfLines(comment: Comment) {
   return comment.content.split('\n').length <= MAX_LINES
 }
 
-export function checkPopularity(comment: Comment){
+export function checkPopularity(comment: Comment) {
   return comment.popularity >= MIN_POPULARITY
 }
 
@@ -60,7 +61,9 @@ export function isCommentExcluded(comment: Comment): boolean {
   const lines = comment.content.split('\n').length;
   const popularity = comment.popularity;
   return lines > MAX_LINES || popularity < MIN_POPULARITY;
-}function wrapText(text: string, charLimit: number): string[] {
+}
+
+function wrapText(text: string, charLimit: number): string[] {
   const words = text.split(' ');
   const lines: string[] = [];
   let currentLine = '';
@@ -84,7 +87,6 @@ export function isCommentExcluded(comment: Comment): boolean {
   }
   return lines;
 }
-
 
 
 export function generateCommentSvg(comment: Comment, theme: string = 'light', width = SVG_DEFAULT_WIDTH): string {
@@ -138,4 +140,18 @@ export function generateCommentSvg(comment: Comment, theme: string = 'light', wi
       ` : ''}
     </svg>
   `
+}
+
+// Configure Sharp to use custom fonts so that rendering also works on vercel
+// see https://github.com/lovell/sharp/issues/2499
+export function setupFontsForVercel() {
+  const fontConfigPath = path.join(process.cwd(), 'fonts', 'fonts.conf');
+  const fontPath1 = path.join(process.cwd(), 'fonts', 'Arial.ttf');
+  const fontPath2 = path.join(process.cwd(), 'fonts', 'Inconsolata-VariableFont_wdth,wght.ttf');
+  const fontPath3 = path.join(process.cwd(), 'fonts', 'Roboto-VariableFont_wdth,wght.ttf');
+  if (process.env.NODE_ENV === 'production') {
+    process.env.FONTCONFIG_PATH = '/var/task/fonts';
+    process.env.LD_LIBRARY_PATH = '/var/task';
+  }
+
 }

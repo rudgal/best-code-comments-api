@@ -5,9 +5,11 @@ import {
   filterComments,
   filterStatic,
   generateCommentSvg,
-  getRandomComment, IMAGE_CACHE_MAX_AGE,
+  getRandomComment,
+  IMAGE_CACHE_MAX_AGE,
   isCommentExcluded,
   isDevEnv,
+  setupFontsForVercel,
   SVG_DEFAULT_WIDTH
 } from './utils.js'
 import * as sharp from 'sharp';
@@ -19,6 +21,8 @@ const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'),
 const commentsData = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'src', 'data', 'comments.json'), 'utf-8'));
 const commentsAll: Comment[] = commentsData as Comment[];
 const commentsPreFiltered: Comment[] = filterStatic(commentsAll);
+
+setupFontsForVercel();
 
 // --- API Server ---
 
@@ -42,12 +46,12 @@ app.get('/', (c) => {
 
 // REST API: Get random comment
 app.get('/api/random', (c) => {
-  const { tags, author } = c.req.query()
+  const {tags, author} = c.req.query()
 
   const randomComment = getRandomComment(commentsPreFiltered);
 
   if (!randomComment) {
-    return c.json({ error: 'No comments found with specified filters' }, 404)
+    return c.json({error: 'No comments found with specified filters'}, 404)
   }
 
   return c.json(randomComment)
@@ -58,12 +62,12 @@ app.get('/api/comment/:id', (c) => {
   const idParam = c.req.param('id')
   const numericId = parseInt(idParam, 10)
   if (isNaN(numericId)) {
-    return c.json({ error: 'Invalid comment ID' }, 400)
+    return c.json({error: 'Invalid comment ID'}, 400)
   }
   const comment = commentsAll.find(c => c.id === numericId)
 
   if (!comment) {
-    return c.json({ error: 'Comment not found' }, 404)
+    return c.json({error: 'Comment not found'}, 404)
   }
 
   return c.json(comment)
@@ -78,19 +82,19 @@ app.get('/comment.svg', async (c) => {
 })
 
 async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
-  const { id, ...queryParams } = c.req.query()
+  const {id, ...queryParams} = c.req.query()
 
   let comment: Comment | undefined
 
   if (id) {
     comment = commentsPreFiltered.find(c => c.id === parseInt(id, 10))
   } else {
-    const { tags, author } = queryParams
+    const {tags, author} = queryParams
     const filtered = filterComments(commentsPreFiltered, tags, author)
     const randomComment = filtered.length > 0 ? getRandomComment(filtered) : undefined
 
     if (!randomComment) {
-      return c.json({ error: 'No comments found with specified filters' }, 404)
+      return c.json({error: 'No comments found with specified filters'}, 404)
     }
 
     const newUrl = `/comment.${imageType}?id=${randomComment.id}`
@@ -105,7 +109,7 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
     return c.text('Comment not found', 404)
   }
 
-  const { theme = 'light', width = SVG_DEFAULT_WIDTH } = queryParams
+  const {theme = 'light', width = SVG_DEFAULT_WIDTH} = queryParams
   const svg = generateCommentSvg(comment, theme, width)
 
   c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`)
@@ -148,16 +152,16 @@ if (isDevEnv()) {
         <h1>All Comments (${commentsAll.length})</h1>
         <ul>
           ${commentsAll.map(comment => {
-            const isExcluded = isCommentExcluded(comment);
-            const styleParagraph = isExcluded ? 'font-weight: bold;' : '';
-            const styleListItem = isExcluded ? 'background-color: #ff9f9f;' : '';
-            return `
+      const isExcluded = isCommentExcluded(comment);
+      const styleParagraph = isExcluded ? 'font-weight: bold;' : '';
+      const styleListItem = isExcluded ? 'background-color: #ff9f9f;' : '';
+      return `
             <li style="${styleListItem}">
               <p style="${styleParagraph}"><strong>ID:</strong> ${comment.id}</p>
             ${generateCommentSvg(comment)}
             </li>
           `;
-          }).join('')}
+    }).join('')}
         </ul>
       </body>
       </html>
