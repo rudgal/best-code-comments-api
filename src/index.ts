@@ -6,13 +6,13 @@ import {
   filterStatic,
   getRandomComment,
   IMAGE_CACHE_MAX_AGE,
-  isCommentExcluded,
   isDevEnv,
   setupFontsForVercel,
   SVG_DEFAULT_WIDTH
 } from './utils.js'
 import { renderToString } from 'hono/jsx/dom/server'
 import { CommentSvg } from './components/CommentSvg.js'
+import { AllCommentsPage } from './components/AllCommentsPage.js'
 import * as sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
@@ -139,38 +139,9 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
 
 if (isDevEnv()) {
   app.get('/all', (c) => {
-    const html = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <meta charset="UTF-8">
-        <title>All Comments</title>
-        <style>
-          body { font-family: sans-serif; margin: 2em; }
-          ul { list-style-type: none; padding: 0; }
-          li { margin-bottom: 20px; border: 1px solid #ccc; padding: 10px; border-radius: 5px; }
-          pre { background-color: #f4f4f4; padding: 10px; border-radius: 3px; white-space: pre-wrap; word-wrap: break-word; max-width: 100%; }
-          code { font-family: monospace; }
-        </style>
-      </head>
-      <body>
-        <h1>All Comments (${commentsAll.length})</h1>
-        <ul>
-          ${commentsAll.map(comment => {
-      const isExcluded = isCommentExcluded(comment);
-      const styleParagraph = isExcluded ? 'font-weight: bold;' : '';
-      const styleListItem = isExcluded ? 'background-color: #ff9f9f;' : '';
-      return `
-            <li style="${styleListItem}">
-              <p style="${styleParagraph}"><strong>ID:</strong> ${comment.id}</p>
-            ${renderToString(CommentSvg({ comment }))}
-            </li>
-          `;
-    }).join('')}
-        </ul>
-      </body>
-      </html>
-    `;
+    const html = '<!DOCTYPE html>' + renderToString(
+      AllCommentsPage({ comments: commentsAll })
+    )
     c.header('Content-Type', 'text/html');
     return c.body(html);
   })
