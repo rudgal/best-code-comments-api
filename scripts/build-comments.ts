@@ -39,6 +39,13 @@ try {
     content: row.content
   }))
 
+  const tagCounts = new Map<CommentTag, number>(COMMENT_TAGS.map(tag => [tag, 0]))
+  comments.forEach(comment => {
+    comment.tags.forEach(tag => {
+      tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
+    })
+  })
+
   // Validate required fields
   comments.forEach((comment, index) => {
     if (isNaN(comment.id)) throw new Error(`Invalid ID at row ${index + 2}: ${comment.id}`)
@@ -68,6 +75,12 @@ try {
 
   console.info(`✅ Successfully built ${comments.length} comments`)
   console.info(`📁 Output: ${dataJsonPath}/comments.json`)
+
+  console.info('🏷️ Tag overview:')
+  COMMENT_TAGS.forEach(tag => {
+    const count = tagCounts.get(tag) ?? 0
+    console.info(`  - ${tag}: ${count}`)
+  })
 } catch (error) {
   console.error('❌ Build failed:', error)
   process.exit(1)
@@ -99,7 +112,7 @@ function parseTags(row: CsvRow, allowed: Set<CommentTag>): CommentTag[] {
   }
 
   const rawTags = value
-    .split(',')
+    .split(/[\s,]+/)
     .map(tag => tag.trim())
     .filter(tag => tag.length > 0)
 
