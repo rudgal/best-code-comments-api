@@ -44,9 +44,14 @@ async function parseHtmlAndExtractAnswers(html: string, currentNextId: number, p
         const date = $(el).find('.user-action-time .relativetime').attr('title') ?? '';
 
         $(el).find('.js-post-body pre code').each((_j, codeEl) => {
-            let content = $(codeEl).html()?.trim() ?? '';
-            content = unescape(content); // Decode HTML entities using lodash.unescape
-            if (content) {
+            const rawHtml = $(codeEl).html() ?? '';
+            let content = unescape(rawHtml); // Decode HTML entities while keeping indentation intact
+            if (content.endsWith('\r\n')) {
+                content = content.slice(0, -2);
+            } else if (content.endsWith('\n')) {
+                content = content.slice(0, -1);
+            }
+            if (content.trim()) {
                 answers.push([ // Push an array of values
                     nextId++,
                     author,

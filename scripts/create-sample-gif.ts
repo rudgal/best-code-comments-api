@@ -11,7 +11,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const repoRoot = path.join(__dirname, '..')
 
-const rawIds = process.env.GIF_COMMENT_IDS ?? '4,7,8,10,11,18,29,33,34,38,43,45,93,99,194,196,202'
+const rawIds = process.env.GIF_COMMENT_IDS ?? '4,7,8,10,11,18,29,33,34,38,43,45,60,64,93,99,194,196,202'
 const COMMENT_IDS = rawIds
   .split(',')
   .map(id => parseInt(id.trim(), 10))
@@ -23,7 +23,7 @@ const PADDED_DIR = path.join(TMP_DIR, 'padded')
 const BACKGROUND = process.env.GIF_BACKGROUND ?? '#0d1117'
 const CANVAS_WIDTH_OVERRIDE = process.env.GIF_WIDTH ? parseInt(process.env.GIF_WIDTH, 10) : undefined
 const CANVAS_HEIGHT_OVERRIDE = process.env.GIF_HEIGHT ? parseInt(process.env.GIF_HEIGHT, 10) : undefined
-const FRAME_DELAY = process.env.GIF_DELAY ?? ('' + 60 * 8)
+const FRAME_DELAY = process.env.GIF_DELAY ?? ('' + 60 * 9)
 const THEME = process.env.GIF_THEME ?? 'light'
 const PADDING = parseInt(process.env.GIF_PADDING ?? '24', 10)
 
