@@ -2,7 +2,8 @@ import { parse } from 'csv-parse/sync'
 import { mkdirSync, readFileSync, writeFileSync } from 'fs'
 import { dirname, join } from 'path'
 import { fileURLToPath } from 'url'
-import type { Comment } from '../src/types.js'
+import type { Comment, CommentTag } from '../src/types.js'
+import { COMMENT_TAGS } from '../src/types.js'
 import { checkNumberOfLines, checkPopularity, isDevEnv } from '../src/utils.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -26,13 +27,15 @@ try {
     relax_column_count: true
   })
 
+  const commentTags = new Set<CommentTag>(COMMENT_TAGS)
+
   const comments: Comment[] = records.map((row: any) => ({
     id: parseInt(row.id, 10),
     author: row.author || 'Anonymous',
     date: row.date,
     source: row.source || null,
     popularity: parseInt(row.popularity, 10),
-    tags: row.tags ? row.tags.split(',').map((t: string) => t.trim()) : [],
+    tags: parseTags(row, commentTags),
     content: row.content
   }))
 
@@ -82,4 +85,28 @@ function reportExcludedComments(comments: Comment[]) {
   if (excludedDueToPopularity.length > 0) {
     console.log(`Excluded due topopularity (${excludedDueToPopularity.length}):`, excludedDueToPopularity)
   }
+}
+
+type CsvRow = {
+  id: string
+  tags?: string
+}
+
+function parseTags(row: CsvRow, allowed: Set<CommentTag>): CommentTag[] {
+  const value = row.tags
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    return []
+  }
+
+  const rawTags = value
+    .split(',')
+    .map(tag => tag.trim())
+    .filter(tag => tag.length > 0)
+
+  const invalidTags = rawTags.filter(tag => !allowed.has(tag as CommentTag))
+  if (invalidTags.length > 0) {
+    console.warn(`⚠️ Ignoring unknown tag(s) for comment ${row.id}: ${invalidTags.join(', ')}`)
+  }
+
+  return rawTags.filter(tag => allowed.has(tag as CommentTag)) as CommentTag[]
 }
