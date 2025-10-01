@@ -109,8 +109,8 @@ a quick gallery of every comment.
 .
 ├── src/
 │   ├── components/
-│   │   ├── AllCommentsPage.tsx   # Dev-only gallery view
-│   │   └── CommentSvg.tsx        # SVG component rendered server-side
+│   │   ├── commentsAllPage.ts    # Dev-only gallery HTML renderer
+│   │   └── commentsSvg.ts        # SVG string renderer
 │   ├── data/                     # Preprocessed comment dataset (JSON)
 │   ├── index.ts                  # Hono application entry point
 │   ├── types.ts                  # Shared type definitions

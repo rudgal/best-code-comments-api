@@ -10,12 +10,11 @@ import {
   setupFontsForVercel,
   SVG_DEFAULT_WIDTH
 } from './utils.js'
-import { renderToString } from 'hono/jsx/dom/server'
-import { CommentSvg } from './components/CommentSvg.js'
-import { AllCommentsPage } from './components/AllCommentsPage.js'
 import * as sharp from 'sharp';
 import fs from 'fs';
 import path from 'path';
+import { renderCommentSvg } from './components/commentsSvg.js';
+import { renderAllCommentsPage } from './components/commentsAllPage.js';
 
 // --- Data Loading ---
 const pkg = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'package.json'), 'utf-8'));
@@ -114,11 +113,11 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
   }
 
   const {theme = 'light', width = SVG_DEFAULT_WIDTH} = queryParams
-  const svg = renderToString(CommentSvg({
+  const svg = renderCommentSvg({
     comment,
     theme,
     width
-  }))
+  })
 
   c.header('Cache-Control', `public, max-age=${IMAGE_CACHE_MAX_AGE}, immutable`)
 
@@ -142,11 +141,9 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
 
 if (isDevEnv()) {
   app.get('/all', (c) => {
-    const html = '<!DOCTYPE html>' + renderToString(
-      AllCommentsPage({ comments: commentsAll })
-    )
-    c.header('Content-Type', 'text/html');
-    return c.body(html);
+    const html = renderAllCommentsPage({comments: commentsAll})
+    c.header('Content-Type', 'text/html')
+    return c.body(html)
   })
 }
 
