@@ -1,5 +1,4 @@
 import type { Comment } from './types.js'
-import path from 'path';
 
 export const SVG_DEFAULT_WIDTH = '820';
 export const MAX_LINES = 25;
@@ -25,11 +24,14 @@ export function filterComments(
   let filtered = comments
 
   if (tags) {
-    const tagList = tags.split(',').map(t => t.trim().toLowerCase())
+    const tagSet = new Set(
+      tags
+        .split(/[\s,]+/)
+        .map(tag => tag.trim().toLowerCase())
+        .filter(tag => tag.length > 0)
+    )
     filtered = filtered.filter(comment =>
-      tagList.some(tag =>
-        comment.tags.map(t => t.toLowerCase()).includes(tag)
-      )
+      comment.tags.some(tag => tagSet.has(tag.toLowerCase()))
     )
   }
 
@@ -62,12 +64,7 @@ export function isCommentExcluded(comment: Comment): boolean {
   return lines > MAX_LINES || popularity < MIN_POPULARITY;
 }
 
-// Configure Sharp to use custom fonts so that rendering also works on vercel
-// see https://github.com/lovell/sharp/issues/2499
 export function setupFontsForVercel() {
-  const fontConfigPath = path.join(process.cwd(), 'fonts', 'fonts.conf');
-  const fontPath1 = path.join(process.cwd(), 'fonts', 'JetBrainsMono-VariableFont_wght.ttf');
-  const fontPath2 = path.join(process.cwd(), 'fonts', 'Roboto-VariableFont_wdth,wght.ttf');
   if (process.env.NODE_ENV === 'production') {
     process.env.FONTCONFIG_PATH = '/var/task/fonts';
     process.env.LD_LIBRARY_PATH = '/var/task';

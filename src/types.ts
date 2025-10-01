@@ -22,14 +22,3 @@ export interface Comment {
   tags: CommentTag[]
   content: string
 }
-
-export interface QueryParams {
-  tags?: string
-  author?: string
-  limit?: string
-  random?: string
-  id?: string
-  theme?: string
-  width?: string
-  interval?: string
-}

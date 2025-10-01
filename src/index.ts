@@ -86,14 +86,18 @@ app.get('/comment.svg', async (c) => {
 })
 
 async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
-  const {id, ...queryParams} = c.req.query()
+  const query = c.req.query()
+  const {id, tags, author, ...restParams} = query
 
   let comment: Comment | undefined
 
   if (id) {
-    comment = commentsPreFiltered.find(c => c.id === parseInt(id, 10))
+    const numericId = Number.parseInt(id, 10)
+    if (Number.isNaN(numericId)) {
+      return c.json({error: 'Invalid comment ID'}, 400)
+    }
+    comment = commentsPreFiltered.find(c => c.id === numericId)
   } else {
-    const {tags, author, ...restParams} = queryParams as Record<string, string | undefined>
     const filtered = filterComments(commentsPreFiltered, tags, author)
     const randomComment = filtered.length > 0 ? getRandomComment(filtered) : undefined
 
@@ -106,7 +110,7 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
     Object.entries(restParams)
       .filter(([, value]) => typeof value === 'string' && value.length > 0)
       .forEach(([key, value]) => {
-        searchParams.append(key, value as string)
+        searchParams.append(key, value)
       })
     const queryString = searchParams.toString()
     const redirectUrl = queryString ? `${newUrl}&${queryString}` : newUrl
@@ -118,7 +122,8 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
     return c.text('Comment not found', 404)
   }
 
-  const {theme = 'light', width = SVG_DEFAULT_WIDTH} = queryParams
+  const theme = restParams['theme'] ?? 'light'
+  const width = restParams['width'] ?? SVG_DEFAULT_WIDTH
   const svg = renderCommentSvg({
     comment,
     theme,

@@ -39,9 +39,10 @@ try {
     content: row.content
   }))
 
-  const tagCounts = new Map<CommentTag, number>(COMMENT_TAGS.map(tag => [tag, 0]))
+  const tagCounts = new Map<CommentTag, number>()
   comments.forEach(comment => {
-    comment.tags.forEach(tag => {
+    const uniqueTags = new Set(comment.tags)
+    uniqueTags.forEach(tag => {
       tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1)
     })
   })
@@ -76,27 +77,37 @@ try {
   console.info(`✅ Successfully built ${comments.length} comments`)
   console.info(`📁 Output: ${dataJsonPath}/comments.json`)
 
-  console.info('🏷️ Tag overview:')
-  COMMENT_TAGS.forEach(tag => {
-    const count = tagCounts.get(tag) ?? 0
-    console.info(`  - ${tag}: ${count}`)
-  })
+  const tagOverview = Object.fromEntries(
+    COMMENT_TAGS.map(tag => [tag, tagCounts.get(tag) ?? 0])
+  )
+  console.info('🏷️ Tag overview:', tagOverview)
 } catch (error) {
   console.error('❌ Build failed:', error)
   process.exit(1)
 }
 
 function reportExcludedComments(comments: Comment[]) {
-  if(!isDevEnv()) return;
+  if (!isDevEnv()) return
 
-  const excludeddueToNumberOfLines = comments.filter(c => !checkNumberOfLines(c)).map(c => c.id)
-  if (excludeddueToNumberOfLines.length > 0) {
-    console.log(`Excluded due to number of lines (${excludeddueToNumberOfLines.length}):`, excludeddueToNumberOfLines)
+  const summary = comments.reduce(
+    (acc, comment) => {
+      if (!checkNumberOfLines(comment)) {
+        acc.tooManyLines.push(comment.id)
+      }
+      if (!checkPopularity(comment)) {
+        acc.tooLowPopularity.push(comment.id)
+      }
+      return acc
+    },
+    { tooManyLines: [] as number[], tooLowPopularity: [] as number[] }
+  )
+
+  if (summary.tooManyLines.length > 0) {
+    console.log(`Excluded due to number of lines (${summary.tooManyLines.length}):`, summary.tooManyLines)
   }
 
-  const excludedDueToPopularity = comments.filter(c => !checkPopularity(c)).map(c => c.id)
-  if (excludedDueToPopularity.length > 0) {
-    console.log(`Excluded due topopularity (${excludedDueToPopularity.length}):`, excludedDueToPopularity)
+  if (summary.tooLowPopularity.length > 0) {
+    console.log(`Excluded due to popularity (${summary.tooLowPopularity.length}):`, summary.tooLowPopularity)
   }
 }
 

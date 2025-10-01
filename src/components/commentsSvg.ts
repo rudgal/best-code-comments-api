@@ -10,6 +10,9 @@ function wrapText(text: string, charLimit: number): string[] {
   if (text.length === 0) {
     return ['']
   }
+  if (/^\s/.test(text)) {
+    return [text]
+  }
   if (text.length <= charLimit) {
     return [text]
   }
