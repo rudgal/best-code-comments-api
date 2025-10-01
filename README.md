@@ -26,24 +26,26 @@ Those snippets are too good to stay buried in an old discussion, so this service
 
 ## Endpoints
 
-| Method | Path               | Description                          | Query params                             |
-|--------|--------------------|--------------------------------------|------------------------------------------|
-| `GET`  | `/health`          | Service status and metadata          | —                                        |
-| `GET`  | `/api/random`      | Random comment with optional filters | `tags`, `author`                         |
-| `GET`  | `/api/comment/:id` | Fetch a comment by numeric ID        | —                                        |
-| `GET`  | `/comment.svg`     | Render a comment as SVG              | `id`, `tags`, `author`, `theme`, `width` |
-| `GET`  | `/comment.png`     | Render a comment as PNG (via Sharp)  | `id`, `tags`, `author`, `theme`, `width` |
+| Method | Path                             | Description                          | Query params                             |
+|--------|----------------------------------|--------------------------------------|------------------------------------------|
+| `GET`  | `/health`                        | Service status and metadata          | —                                        |
+| `GET`  | `/api/random`                    | Random comment with optional filters | `tags`, `author`, `maxLines`, `minPopularity` |
+| `GET`  | `/api/comment/:id`               | Fetch a comment by numeric ID        | —                                        |
+| `GET`  | `/comment.svg`<br>`/comment.png` | Render a comment as SVG or PNG (via Sharp) | `id`, `tags`, `author`, `maxLines`, `minPopularity`, `theme`, `width` |
 
 ### Query Parameters
 
-- `tags` — comma-separated list to filter by tags
-  - see [`src/types.ts`](src/types.ts) for supported tags. 
-- `author` — match author substring (`/api/random?author=jmb`)
-- `id` — choose an exact comment (`/comment.svg?id=273`)
-- `theme` — `light` (default) or `dark`
-- `width` — SVG width in pixels (string or number)
+| Name | Default | Description                                                                          |
+|------|---------|--------------------------------------------------------------------------------------|
+| `tags` | — | Comma-separated tag filter; see [`src/types.ts`](src/types.ts) for supported values. |
+| `author` | — | Case-insensitive substring match on the author field.                                |
+| `maxLines` | `25` | Maximum number of lines the comment should have.                              |
+| `minPopularity` | `2` | Minimum stackoverflow popularity score the comment should have.                      |
+| `id` | — | Request a specific comment by numeric ID.                                            |
+| `theme` | `light` | Theme for rendered SVG/PNG cards; supports `light` and `dark`.                       |
+| `width` | `820` | Width of the rendered SVG in pixels (string or number).                              |
 
-SVG/PNG requests without an `id` redirect to a random comment that fits your filters.
+SVG/PNG requests without an `id` redirect to a random comment that fits your filters, including `maxLines` and `minPopularity`.
 
 ### Examples
 

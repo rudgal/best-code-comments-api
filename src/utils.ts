@@ -16,12 +16,22 @@ export function getRandomComment(comments: Comment[]): Comment | undefined {
   return comments[Math.floor(Math.random() * comments.length)]
 }
 
+type CommentFilters = {
+  tags?: string
+  author?: string
+  maxLines?: number
+  minPopularity?: number
+}
+
 export function filterComments(
   comments: Comment[],
-  tags?: string,
-  author?: string
+  {tags, author, maxLines = MAX_LINES, minPopularity = MIN_POPULARITY}: CommentFilters = {}
 ): Comment[] {
   let filtered = comments
+
+  filtered = filtered
+    .filter(comment => checkNumberOfLines(comment, maxLines))
+    .filter(comment => checkPopularity(comment, minPopularity))
 
   if (tags) {
     const tagSet = new Set(
@@ -44,24 +54,16 @@ export function filterComments(
   return filtered
 }
 
-export function checkNumberOfLines(comment: Comment) {
-  return comment.content.split('\n').length <= MAX_LINES
+export function checkNumberOfLines(comment: Comment, maxLines: number = MAX_LINES) {
+  return comment.content.split('\n').length <= maxLines
 }
 
-export function checkPopularity(comment: Comment) {
-  return comment.popularity >= MIN_POPULARITY
-}
-
-export function filterStatic(comments: Comment[]): Comment[] {
-  return comments
-    .filter(comment => checkNumberOfLines(comment))
-    .filter(comment => checkPopularity(comment))
+export function checkPopularity(comment: Comment, minPopularity: number = MIN_POPULARITY) {
+  return comment.popularity >= minPopularity
 }
 
 export function isCommentExcluded(comment: Comment): boolean {
-  const lines = comment.content.split('\n').length;
-  const popularity = comment.popularity;
-  return lines > MAX_LINES || popularity < MIN_POPULARITY;
+  return !checkNumberOfLines(comment) || !checkPopularity(comment);
 }
 
 export function setupFontsForVercel() {
@@ -69,5 +71,38 @@ export function setupFontsForVercel() {
     process.env.FONTCONFIG_PATH = '/var/task/fonts';
     process.env.LD_LIBRARY_PATH = '/var/task';
   }
+}
 
+type QueryRecord = Record<string, string | undefined>
+
+export function parseNumberQueryParam(value: string | undefined, fallback: number): number {
+  if (typeof value !== 'string' || value.trim().length === 0) {
+    return fallback
+  }
+
+  const parsed = Number.parseInt(value, 10)
+  return Number.isNaN(parsed) ? fallback : parsed
+}
+
+export function getQueryParam(query: QueryRecord, key: string): string | undefined {
+  const target = key.toLowerCase()
+  for (const [queryKey, value] of Object.entries(query)) {
+    if (queryKey.toLowerCase() === target && typeof value === 'string') {
+      const trimmed = value.trim()
+      if (trimmed.length > 0) {
+        return trimmed
+      }
+    }
+  }
+  return undefined
+}
+
+export function cloneQueryWithout(query: QueryRecord, keys: string[]): Record<string, string> {
+  const exclude = new Set(keys.map(key => key.toLowerCase()))
+  return Object.entries(query).reduce<Record<string, string>>((acc, [key, value]) => {
+    if (typeof value === 'string' && !exclude.has(key.toLowerCase())) {
+      acc[key] = value
+    }
+    return acc
+  }, {})
 }
