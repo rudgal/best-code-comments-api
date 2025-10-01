@@ -37,6 +37,7 @@ Those snippets are too good to stay buried in an old discussion, so this service
 ### Query Parameters
 
 - `tags` — comma-separated list to filter by tags
+  - see [`src/types.ts`](src/types.ts) for supported tags. 
 - `author` — match author substring (`/api/random?author=jmb`)
 - `id` — choose an exact comment (`/comment.svg?id=273`)
 - `theme` — `light` (default) or `dark`

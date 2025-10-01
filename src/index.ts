@@ -51,7 +51,8 @@ app.get('/', (c) => c.redirect(repoUrl))
 app.get('/api/random', (c) => {
   const {tags, author} = c.req.query()
 
-  const randomComment = getRandomComment(commentsPreFiltered);
+  const filtered = filterComments(commentsPreFiltered, tags, author)
+  const randomComment = getRandomComment(filtered)
 
   if (!randomComment) {
     return c.json({error: 'No comments found with specified filters'}, 404)
@@ -92,7 +93,7 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
   if (id) {
     comment = commentsPreFiltered.find(c => c.id === parseInt(id, 10))
   } else {
-    const {tags, author} = queryParams
+    const {tags, author, ...restParams} = queryParams as Record<string, string | undefined>
     const filtered = filterComments(commentsPreFiltered, tags, author)
     const randomComment = filtered.length > 0 ? getRandomComment(filtered) : undefined
 
@@ -101,7 +102,12 @@ async function handleCommentImageRequest(c: Context, imageType: 'png' | 'svg') {
     }
 
     const newUrl = `/comment.${imageType}?id=${randomComment.id}`
-    const searchParams = new URLSearchParams(queryParams as Record<string, string>)
+    const searchParams = new URLSearchParams()
+    Object.entries(restParams)
+      .filter(([, value]) => typeof value === 'string' && value.length > 0)
+      .forEach(([key, value]) => {
+        searchParams.append(key, value as string)
+      })
     const queryString = searchParams.toString()
     const redirectUrl = queryString ? `${newUrl}&${queryString}` : newUrl
 
